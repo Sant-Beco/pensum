@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pénsum · Full Stack + Automatización + Seguridad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-0:#0B0F1A;
+    --navy-1:#121826;
+    --navy-2:#171F31;
+    --line:#2A3349;
+    --line-soft:#212A3C;
+    --paper:#E9E6DA;
+    --paper-dim:#A9AFC0;
+    --brass:#C9A24B;
+    --brass-dim:#8A7238;
+    --green:#5C9C74;
+    --green-dim:#3C6B4E;
+    --red:#B15B5B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--navy-0);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(201,162,75,0.06), transparent 45%),
+      radial-gradient(ellipse at bottom right, rgba(92,156,116,0.05), transparent 50%);
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .serif{font-family:'Fraunces',serif;}
+
+  /* ===== HEADER / EXPEDIENTE ===== */
+  .wrap{max-width:920px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+  .crest{
+    width:52px;height:52px;border-radius:50%;
+    border:1.5px solid var(--brass);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .crest svg{width:26px;height:26px;}
+  header.doc{
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--navy-1);
+    padding:1.75rem 1.75rem 1.5rem;
+    margin-bottom:1.75rem;
+    position:relative;
+  }
+  header.doc::before{
+    content:'';
+    position:absolute; inset:6px;
+    border:1px solid rgba(201,162,75,0.15);
+    border-radius:2px;
+    pointer-events:none;
+  }
+  .doc-top{display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;}
+  .doc-eyebrow{
+    font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--brass); margin-bottom:0.3rem; font-weight:600;
+  }
+  h1{
+    font-size:1.55rem; margin:0; line-height:1.15; font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .doc-sub{color:var(--paper-dim); font-size:0.85rem; margin-top:0.35rem; line-height:1.5;}
+  .expediente-meta{
+    display:flex; flex-wrap:wrap; gap:1.5rem;
+    margin-top:1.25rem; padding-top:1.1rem;
+    border-top:1px dashed var(--line);
+    font-size:0.72rem; color:var(--paper-dim);
+  }
+  .expediente-meta b{color:var(--paper); font-weight:600;}
+  .meta-label{text-transform:uppercase; letter-spacing:0.08em; font-size:0.62rem; display:block; margin-bottom:2px; color:var(--brass-dim);}
+
+  /* progreso global */
+  .global-progress{margin-top:1.25rem;}
+  .gp-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.4rem;}
+  .gp-row span:first-child{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--paper-dim);}
+  .gp-row span:last-child{font-size:0.85rem; font-weight:700; color:var(--brass);}
+  .bar-track{height:6px; background:var(--navy-2); border-radius:3px; overflow:hidden; border:1px solid var(--line);}
+  .bar-fill{height:100%; background:linear-gradient(90deg, var(--brass-dim), var(--brass)); transition:width .5s ease;}
+
+  /* ===== REGLAS ===== */
+  .rules{
+    border:1px solid var(--line); border-radius:4px;
+    background:var(--navy-1); padding:1.4rem 1.6rem;
+    margin-bottom:2.25rem;
+  }
+  .rules h2{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+    color:var(--brass); margin:0 0 0.9rem; font-weight:700;
+  }
+  .rules ol{margin:0; padding-left:1.1rem; color:var(--paper-dim); font-size:0.84rem; line-height:1.75;}
+  .rules li::marker{color:var(--brass); font-family:'JetBrains Mono',monospace; font-weight:700;}
+  .rules b{color:var(--paper);}
+
+  /* ===== MÓDULO CARD ===== */
+  .modulos{display:flex; flex-direction:column; gap:0.9rem;}
+  .modulo{
+    border:1px solid var(--line); border-radius:4px;
+    background:var(--navy-1); overflow:hidden;
+    transition:border-color .25s;
+  }
+  .modulo.aprobado{border-color:rgba(92,156,116,0.4);}
+  .modulo.bloqueado{opacity:0.55;}
+
+  .mod-head{
+    display:flex; align-items:center; gap:1rem;
+    padding:1.1rem 1.4rem; cursor:pointer;
+    user-select:none;
+  }
+  .mod-head:hover{background:var(--navy-2);}
+  .mod-code{
+    font-family:'JetBrains Mono',monospace; font-size:0.7rem;
+    color:var(--brass-dim); border:1px solid var(--line);
+    border-radius:3px; padding:0.25rem 0.5rem; flex-shrink:0;
+    letter-spacing:0.03em;
+  }
+  .mod-title-block{flex:1; min-width:0;}
+  .mod-title{font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; line-height:1.3;}
+  .mod-weeks{font-size:0.7rem; color:var(--paper-dim); margin-top:0.15rem;}
+  .mod-progress-mini{
+    width:64px; flex-shrink:0; text-align:right;
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--paper-dim);
+  }
+  .mod-progress-mini .bar-track{margin-top:4px; height:4px;}
+
+  .badge{
+    flex-shrink:0; font-size:0.62rem; font-weight:700; letter-spacing:0.08em;
+    text-transform:uppercase; padding:0.32rem 0.65rem; border-radius:20px;
+    display:flex; align-items:center; gap:0.35rem; white-space:nowrap;
+  }
+  .badge.bloqueado{background:rgba(255,255,255,0.03); color:var(--paper-dim); border:1px solid var(--line);}
+  .badge.en-curso{background:rgba(201,162,75,0.1); color:var(--brass); border:1px solid rgba(201,162,75,0.35);}
+  .badge.aprobado{background:rgba(92,156,116,0.12); color:var(--green); border:1px solid rgba(92,156,116,0.4);}
+
+  .chevron{width:14px; height:14px; flex-shrink:0; transition:transform .25s; color:var(--paper-dim);}
+  .modulo.open .chevron{transform:rotate(90deg);}
+
+  .mod-body{
+    max-height:0; overflow:hidden; transition:max-height .35s ease;
+  }
+  .modulo.open .mod-body{max-height:4000px;}
+  .mod-body-inner{padding:0 1.4rem 1.5rem; border-top:1px dashed var(--line); margin-top:0; padding-top:1.2rem;}
+
+  .locked-msg{
+    padding:1.4rem; display:flex; align-items:center; gap:0.7rem;
+    color:var(--paper-dim); font-size:0.82rem;
+  }
+  .locked-msg svg{width:16px; height:16px; flex-shrink:0; color:var(--brass-dim);}
+
+  .section-label{
+    font-size:0.65rem; text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--brass-dim); font-weight:700; margin:1.3rem 0 0.6rem;
+  }
+  .section-label:first-child{margin-top:0;}
+
+  ul.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.35rem;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:0.6rem;
+    font-size:0.85rem; line-height:1.5; color:var(--paper);
+    cursor:pointer; padding:0.25rem 0.3rem; border-radius:3px;
+    transition:background .15s;
+  }
+  .check-item:hover{background:var(--navy-2);}
+  .check-item input{
+    appearance:none; width:15px; height:15px; margin-top:3px;
+    border:1.5px solid var(--line); border-radius:3px; flex-shrink:0;
+    cursor:pointer; position:relative; background:var(--navy-0);
+  }
+  .check-item input:checked{background:var(--brass); border-color:var(--brass);}
+  .check-item input:checked::after{
+    content:''; position:absolute; left:4px; top:0.5px;
+    width:4px; height:8px; border:solid var(--navy-0);
+    border-width:0 2px 2px 0; transform:rotate(45deg);
+  }
+  .check-item.done span{color:var(--paper-dim); text-decoration:line-through; text-decoration-color:var(--line);}
+  .check-item.security{background:rgba(92,156,116,0.05); border-left:2px solid var(--green-dim); padding-left:0.6rem;}
+
+  .criterios-box{
+    border:1px solid var(--brass-dim); border-radius:4px;
+    background:rgba(201,162,75,0.04); padding:1rem 1.1rem; margin-top:1.3rem;
+  }
+  .criterios-box .section-label{margin-top:0; color:var(--brass);}
+  .gate-note{font-size:0.72rem; color:var(--paper-dim); margin-top:0.7rem; font-style:italic;}
+
+  .proyecto-box{
+    border:1px solid var(--line); border-radius:4px;
+    background:var(--navy-2); padding:1rem 1.1rem; margin-top:1.3rem;
+    font-size:0.85rem; line-height:1.6; color:var(--paper-dim);
+  }
+  .proyecto-box b{color:var(--paper);}
+
+  /* sello / stamp */
+  .stamp{
+    position:absolute; top:-6px; right:14px;
+    width:44px; height:44px; border-radius:50%;
+    border:2px solid var(--green); color:var(--green);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:0.5rem; font-weight:700;
+    letter-spacing:0.02em; text-align:center; transform:rotate(-12deg);
+    background:var(--navy-1);
+    animation:stampIn .45s cubic-bezier(.2,1.4,.4,1);
+  }
+  @keyframes stampIn{
+    0%{transform:rotate(-12deg) scale(2.2); opacity:0;}
+    60%{opacity:1;}
+    100%{transform:rotate(-12deg) scale(1); opacity:1;}
+  }
+
+  footer{
+    margin-top:2.5rem; text-align:center;
+    font-size:0.72rem; color:var(--paper-dim);
+  }
+  .reset-btn{
+    background:none; border:1px solid var(--line); color:var(--paper-dim);
+    font-family:'Inter',sans-serif; font-size:0.7rem; padding:0.4rem 0.8rem;
+    border-radius:3px; cursor:pointer; margin-top:0.8rem;
+  }
+  .reset-btn:hover{border-color:var(--red); color:var(--red);}
+
+  .loading{padding:3rem; text-align:center; color:var(--paper-dim); font-size:0.85rem;}
+
+  @media(max-width:600px){
+    .mod-head{padding:0.9rem 1rem; gap:0.7rem;}
+    .mod-code{display:none;}
+    .mod-progress-mini{width:44px; font-size:0.62rem;}
+    .badge span.label-text{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div class="doc-top">
+      <div class="crest">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="#C9A24B" stroke-width="1.3"/><path d="M9 12l2 2 4-4" stroke="#C9A24B" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="doc-eyebrow">Pénsum de estudio · Expediente académico</div>
+        <h1>Full Stack + Automatización + Seguridad</h1>
+        <div class="doc-sub">Ruta secuencial de 7 módulos. Cada módulo se aprueba antes de desbloquear el siguiente — no hay atajos.</div>
+      </div>
+    </div>
+
+    <div class="expediente-meta">
+      <div><span class="meta-label">Objetivo</span><b>Empleabilidad en tecnología</b></div>
+      <div><span class="meta-label">Duración estimada</span><b>22 semanas</b></div>
+      <div><span class="meta-label">Cohorte iniciada</span><b id="fechaInicio">—</b></div>
+      <div><span class="meta-label">Editor / Sistema</span><b>Cursor · Ubuntu 22.04</b></div>
+    </div>
+
+    <div class="global-progress">
+      <div class="gp-row"><span>Avance del pénsum</span><span id="gpPct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="gpBar" style="width:0%"></div></div>
+    </div>
+  </header>
+
+  <div class="rules">
+    <h2>Reglas del programa</h2>
+    <ol>
+      <li><b>Orden estricto:</b> no se avanza al siguiente módulo sin marcar el 100% de sus criterios de aprobación.</li>
+      <li><b>Todo se sube a GitHub:</b> ejercicios, actividades y proyectos, cada uno con README.</li>
+      <li><b>El proyecto final de cada módulo es obligatorio</b> — es lo que demuestra que puedes aplicarlo, no solo entenderlo.</li>
+      <li><b>Ciberseguridad no es un módulo aparte:</b> aparece marcada con 🛡 dentro de cada módulo, integrada al contenido técnico.</li>
+      <li><b>Si un criterio no se cumple honestamente,</b> no se marca. El progreso falso no desbloquea nada útil.</li>
+    </ol>
+  </div>
+
+  <div id="loadingState" class="loading">Cargando expediente...</div>
+  <div class="modulos" id="modulos" style="display:none;"></div>
+
+  <footer>
+    Tu progreso se guarda automáticamente en este dispositivo.
+    <br>
+    <button class="reset-btn" id="resetBtn">Reiniciar todo el progreso</button>
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+const DATA = [
+  {
+    id:"m0", code:"MOD-00", title:"Git & GitHub — Base", weeks:"Ya cursado",
+    unidades:[
+      "Comandos base: init, add, commit, push, pull, clone",
+      "Ramas: branch, checkout/switch, merge",
+      "Resolución de conflictos de merge",
+      "README.md efectivo y estructura de repos",
+      "Buenas prácticas de commits (mensajes claros, commits atómicos)"
+    ],
+    actividades:[
+      "3 repos de práctica subidos con commits ordenados",
+      "Un merge con conflicto resuelto manualmente"
+    ],
+    proyecto:"Portafolio base en GitHub: perfil configurado + README de perfil.",
+    criterios:[
+      "Puedo crear una rama, hacer cambios y fusionarla sin ayuda",
+      "Sé resolver un conflicto de merge sin buscar el paso a paso",
+      "Todos mis repos tienen README",
+      "Uso mensajes de commit descriptivos, no \"cambios\" o \"update\""
+    ]
+  },
+  {
+    id:"m1", code:"MOD-01", title:"Python — Fundamentos y Automatización", weeks:"Semanas 1–4",
+    unidades:[
+      "Sintaxis base: variables, tipos, operadores",
+      "Estructuras de control: condicionales, bucles",
+      "Estructuras de datos: listas, tuplas, diccionarios, sets",
+      "Funciones: parámetros, retorno, *args/**kwargs",
+      "Manejo de errores: try/except, excepciones personalizadas",
+      "POO básica: clases, objetos, herencia simple",
+      "Entornos virtuales (venv) y gestión de paquetes (pip, requirements.txt)",
+      "Manejo de archivos: lectura/escritura CSV, TXT, JSON",
+      "Librerías de automatización: requests, pandas, Selenium/Playwright",
+      {t:"🛡 Variables de entorno para credenciales — nunca hardcodear secrets", sec:true},
+      {t:"🛡 Validación básica de inputs antes de procesarlos", sec:true}
+    ],
+    actividades:[
+      "20 ejercicios de lógica y estructuras de datos, subidos a GitHub",
+      "Un script que lea un archivo y transforme datos con pandas",
+      "Un script que consuma una API pública con requests y maneje errores de conexión"
+    ],
+    proyecto:"Automatización real: scraper o bot que resuelva un problema tedioso tuyo, con logging y manejo de errores, documentado en GitHub.",
+    criterios:[
+      "Escribo una función con manejo de excepciones sin ver documentación",
+      "Uso entornos virtuales por defecto en cada proyecto nuevo",
+      "Mi script de automatización no se cae ante un error esperado",
+      "Nunca dejo contraseñas o tokens escritos directamente en el código",
+      "Mi proyecto está en GitHub con README de qué hace y cómo correrlo"
+    ]
+  },
+  {
+    id:"m2", code:"MOD-02", title:"Backend — FastAPI + PostgreSQL + SQLAlchemy + Alembic", weeks:"Semanas 5–9",
+    unidades:[
+      "FastAPI: rutas, path/query params, Pydantic models",
+      "Inyección de dependencias en FastAPI",
+      "Documentación automática (Swagger/OpenAPI)",
+      "PostgreSQL: modelado relacional, claves primarias/foráneas, normalización",
+      "Joins y consultas complejas entre múltiples tablas",
+      "Índices y optimización básica de consultas",
+      "SQLAlchemy 2.0: modelos, relaciones (1:N, N:M), sesiones",
+      "Alembic: migraciones y versionado del esquema",
+      "Diseño de API REST: verbos HTTP, códigos de estado, convenciones",
+      {t:"🛡 Por qué el ORM previene SQL injection", sec:true},
+      {t:"🛡 Validación estricta con Pydantic, no exponer stack traces en producción", sec:true},
+      {t:"🛡 CORS: qué es y cómo configurarlo correctamente", sec:true}
+    ],
+    actividades:[
+      "Diagrama entidad-relación de un sistema con al menos 3 tablas relacionadas",
+      "CRUD completo de una entidad con FastAPI + SQLAlchemy",
+      "Una migración con Alembic que agregue una columna sin perder datos"
+    ],
+    proyecto:"API REST completa de un sistema con relaciones complejas (ej. productos → remisiones → clientes), con migraciones versionadas y documentación Swagger.",
+    criterios:[
+      "Puedo modelar una relación 1:N y N:M sin ejemplo enfrente",
+      "Sé explicar por qué el ORM previene inyección SQL",
+      "Mis migraciones de Alembic corren hacia adelante y hacia atrás sin errores",
+      "Mi API responde códigos de estado correctos (200, 201, 400, 404...)",
+      "No expongo detalles internos del error al cliente en producción"
+    ]
+  },
+  {
+    id:"m3", code:"MOD-03", title:"Autenticación y Seguridad — JWT + Roles", weeks:"Semanas 10–11",
+    unidades:[
+      "JWT: estructura, firma, expiración, refresh tokens",
+      "Hashing de contraseñas (bcrypt/argon2)",
+      "OAuth2 password flow en FastAPI",
+      "Control de acceso basado en roles (admin, bodeguero, vendedor)",
+      "Cookies httpOnly vs almacenamiento en localStorage",
+      {t:"🛡 OWASP Top 10 explicado con ejemplos: injection, broken auth, XSS, CSRF", sec:true},
+      {t:"🛡 Rate limiting básico contra fuerza bruta en login", sec:true},
+      {t:"🛡 Manejo de secretos: .env fuera de git, nunca en el repo", sec:true}
+    ],
+    actividades:[
+      "Implementar login/logout con JWT en el proyecto del módulo 2",
+      "Middleware de verificación de rol por endpoint",
+      "Simular y bloquear un ataque de fuerza bruta simple en login"
+    ],
+    proyecto:"Sistema de autenticación completo con roles, integrado a la API del módulo 2.",
+    criterios:[
+      "Explico qué pasa si expongo el JWT secret y cómo evitarlo",
+      "Mis contraseñas nunca se guardan en texto plano",
+      "Cada endpoint sensible verifica el rol, no solo si el usuario está logueado",
+      "Mi login tiene límite de intentos fallidos",
+      "Mi archivo .env nunca ha sido subido a un repo público"
+    ]
+  },
+  {
+    id:"m4", code:"MOD-04", title:"Frontend — Next.js + Tailwind + shadcn/ui + Recharts", weeks:"Semanas 12–16",
+    unidades:[
+      "React: componentes, props, estado, hooks (useState, useEffect)",
+      "Next.js App Router: rutas, server components vs client components",
+      "Fetch de datos desde el backend (server-side y client-side)",
+      "Tailwind CSS: utilidades y diseño responsivo",
+      "shadcn/ui: tablas, formularios, diálogos, componentes reutilizables",
+      "Recharts: gráficas de barras, líneas, dashboards",
+      "Formularios con validación (react-hook-form o similar)",
+      "Manejo de sesión/autenticación en el frontend",
+      {t:"🛡 Por qué React previene XSS por defecto", sec:true},
+      {t:"🛡 Manejo seguro de tokens en el cliente, no exponer datos sensibles", sec:true}
+    ],
+    actividades:[
+      "5 componentes reutilizables: botón, card, tabla, modal, formulario",
+      "Layout responsivo probado en móvil y escritorio",
+      "Conexión de un formulario del frontend con un endpoint real del backend"
+    ],
+    proyecto:"Dashboard conectado a la API de los módulos 2–3: login funcional, tablas, formularios de creación/edición y al menos una gráfica con Recharts.",
+    criterios:[
+      "Puedo crear un componente con estado y props sin copiar de un ejemplo",
+      "Mi frontend consume la API real, no datos hardcodeados",
+      "Mi dashboard es usable en móvil sin romperse",
+      "El login del frontend redirige correctamente según el rol",
+      "Mis formularios validan datos antes de enviarlos al backend"
+    ]
+  },
+  {
+    id:"m5", code:"MOD-05", title:"Contenerización y Deploy — Docker + Railway", weeks:"Semanas 17–18",
+    unidades:[
+      "Docker: imágenes, contenedores, Dockerfile",
+      "Docker Compose: orquestar backend + base de datos + frontend",
+      "Variables de entorno en contenedores",
+      "Deploy en Railway: backend + PostgreSQL + frontend",
+      "CI básico con GitHub Actions (opcional)",
+      {t:"🛡 No exponer puertos innecesarios", sec:true},
+      {t:"🛡 Gestión de secretos en producción, HTTPS", sec:true},
+      {t:"🛡 Actualizar dependencias (pip-audit / npm audit)", sec:true}
+    ],
+    actividades:[
+      "Dockerfile funcional para el backend y para el frontend",
+      "docker-compose.yml que levante los 3 servicios juntos localmente"
+    ],
+    proyecto:"Todo el stack de los módulos anteriores dockerizado y desplegado en Railway, accesible por URL pública.",
+    criterios:[
+      "Mi proyecto completo levanta con un solo comando (docker compose up)",
+      "Mis contenedores no corren como root sin razón",
+      "Ningún secreto está escrito directamente en Dockerfile o docker-compose.yml",
+      "Mi app está accesible en una URL pública, funcionando de extremo a extremo"
+    ]
+  },
+  {
+    id:"m6", code:"MOD-06", title:"Capstone — Proyecto Integrador y Empleabilidad", weeks:"Semanas 19–22",
+    unidades:[
+      "Arquitectura de un sistema real completo (repaso integrador)",
+      "Pruebas básicas con pytest",
+      "Buenas prácticas de README, documentación técnica y diagramas",
+      "Buenas prácticas de commits/PRs, historial limpio",
+      "Armado de portafolio en GitHub y LinkedIn",
+      "Cómo presentar un proyecto en una entrevista técnica",
+      {t:"🛡 Checklist final de seguridad: OWASP Top 10 aplicado a tu propio proyecto", sec:true}
+    ],
+    actividades:[
+      "Al menos 5 pruebas automatizadas (pytest) sobre el backend",
+      "Documentación técnica del proyecto: arquitectura, decisiones, cómo correrlo",
+      "Simulacro de entrevista técnica explicando tu proyecto en voz alta (grábate)"
+    ],
+    proyecto:"Sistema completo end-to-end: backend + frontend + base de datos relacional + autenticación con roles + gráficas + dockerizado + desplegado en producción. Pieza central de tu portafolio.",
+    criterios:[
+      "Mi proyecto final está desplegado y accesible públicamente",
+      "Tiene al menos 2 roles de usuario funcionando con permisos distintos",
+      "Pasé mi propio checklist de seguridad OWASP sobre este proyecto",
+      "Puedo explicar cada decisión técnica sin apoyarme en notas",
+      "Mi README permite que alguien más lo corra sin preguntarme nada"
+    ]
+  }
+];
+
+const STORAGE_KEY = "pensum-progress";
+let state = { checked: {}, fechaInicio: null, openModules: {} };
+
+function allItemIds(mod){
+  const ids = [];
+  mod.unidades.forEach((u,i)=> ids.push(mod.id+"-u"+i));
+  mod.actividades.forEach((a,i)=> ids.push(mod.id+"-a"+i));
+  ids.push(mod.id+"-p");
+  mod.criterios.forEach((c,i)=> ids.push(mod.id+"-c"+i));
+  return ids;
+}
+function criterioIds(mod){
+  return mod.criterios.map((c,i)=> mod.id+"-c"+i);
+}
+
+function isModUnlocked(idx){
+  if(idx === 0) return true;
+  const prev = DATA[idx-1];
+  return criterioIds(prev).every(id => !!state.checked[id]);
+}
+function isModApproved(mod){
+  return criterioIds(mod).every(id => !!state.checked[id]);
+}
+function modProgress(mod){
+  const ids = allItemIds(mod);
+  const done = ids.filter(id => !!state.checked[id]).length;
+  return Math.round((done/ids.length)*100);
+}
+function globalProgress(){
+  let total=0, done=0;
+  DATA.forEach(mod=>{
+    const ids = allItemIds(mod);
+    total += ids.length;
+    done += ids.filter(id=>!!state.checked[id]).length;
+  });
+  return total ? Math.round((done/total)*100) : 0;
+}
+
+async function loadState(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if(res && res.value){
+      const parsed = JSON.parse(res.value);
+      state.checked = parsed.checked || {};
+      state.fechaInicio = parsed.fechaInicio || null;
+      state.openModules = parsed.openModules || {};
+    }
+  }catch(e){ /* no existe aún, primera vez */ }
+
+  if(!state.fechaInicio){
+    state.fechaInicio = new Date().toISOString().slice(0,10);
+    await saveState();
+  }
+}
+async function saveState(){
+  try{
+    await window.storage.set(STORAGE_KEY, JSON.stringify(state), false);
+  }catch(e){ console.error("No se pudo guardar el progreso", e); }
+}
+
+function lockIconSVG(){
+  return '<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.5"/></svg>';
+}
+function chevronSVG(){
+  return '<svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+function render(){
+  const container = document.getElementById("modulos");
+  container.innerHTML = "";
+
+  DATA.forEach((mod, idx) => {
+    const unlocked = isModUnlocked(idx);
+    const approved = unlocked && isModApproved(mod);
+    const status = !unlocked ? "bloqueado" : (approved ? "aprobado" : "en-curso");
+    const statusLabel = !unlocked ? "Bloqueado" : (approved ? "Aprobado" : "En curso");
+    const pct = unlocked ? modProgress(mod) : 0;
+    const isOpen = !!state.openModules[mod.id];
+
+    const card = document.createElement("div");
+    card.className = "modulo " + (status === "aprobado" ? "aprobado" : "") + (status === "bloqueado" ? " bloqueado" : "") + (isOpen ? " open" : "");
+    card.style.position = "relative";
+
+    if(status === "aprobado"){
+      const stamp = document.createElement("div");
+      stamp.className = "stamp";
+      stamp.innerHTML = "APROBADO";
+      card.appendChild(stamp);
+    }
+
+    const head = document.createElement("div");
+    head.className = "mod-head";
+    head.innerHTML = `
+      <span class="mod-code mono">${mod.code}</span>
+      <div class="mod-title-block">
+        <div class="mod-title">${mod.title}</div>
+        <div class="mod-weeks">${mod.weeks}</div>
+      </div>
+      <div class="mod-progress-mini">
+        <div>${pct}%</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      </div>
+      <span class="badge ${status}">${status==='bloqueado'?lockIconSVG():''}<span class="label-text">${statusLabel}</span></span>
+      ${chevronSVG()}
+    `;
+    head.addEventListener("click", () => {
+      state.openModules[mod.id] = !state.openModules[mod.id];
+      saveState();
+      render();
+    });
+    card.appendChild(head);
+
+    const body = document.createElement("div");
+    body.className = "mod-body";
+    const inner = document.createElement("div");
+    inner.className = "mod-body-inner";
+
+    if(!unlocked){
+      inner.innerHTML = `<div class="locked-msg">${lockIconSVG()}<span>Completa el 100% de los criterios de aprobación del módulo anterior para desbloquear este contenido.</span></div>`;
+    } else {
+      inner.appendChild(buildSection("Unidades", mod.unidades, mod.id, "u"));
+      inner.appendChild(buildSection("Actividades", mod.actividades, mod.id, "a"));
+
+      const proyectoBox = document.createElement("div");
+      proyectoBox.className = "proyecto-box";
+      const pDone = !!state.checked[mod.id+"-p"];
+      proyectoBox.innerHTML = `<div class="section-label" style="margin-top:0;">Proyecto del módulo</div>
+        <label class="check-item ${pDone?'done':''}" style="padding-left:0;">
+          <input type="checkbox" data-id="${mod.id}-p" ${pDone?'checked':''}>
+          <span><b>Entregable:</b> ${mod.proyecto}</span>
+        </label>`;
+      inner.appendChild(proyectoBox);
+
+      const criteriosBox = document.createElement("div");
+      criteriosBox.className = "criterios-box";
+      criteriosBox.appendChild(buildSection("Criterios de aprobación (examen de salida)", mod.criterios, mod.id, "c", true));
+      const note = document.createElement("div");
+      note.className = "gate-note";
+      note.textContent = "Debes marcar el 100% de estos criterios para desbloquear el siguiente módulo.";
+      criteriosBox.appendChild(note);
+      inner.appendChild(criteriosBox);
+    }
+
+    body.appendChild(inner);
+    card.appendChild(body);
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener("click", (e) => e.stopPropagation());
+    cb.addEventListener("change", async (e) => {
+      const id = e.target.dataset.id;
+      state.checked[id] = e.target.checked;
+      await saveState();
+      render();
+    });
+  });
+
+  document.getElementById("gpPct").textContent = globalProgress() + "%";
+  document.getElementById("gpBar").style.width = globalProgress() + "%";
+  document.getElementById("fechaInicio").textContent = state.fechaInicio || "—";
+}
+
+function buildSection(label, items, modId, prefix, noSectionLabelClass){
+  const wrap = document.createElement("div");
+  const lbl = document.createElement("div");
+  lbl.className = "section-label";
+  lbl.textContent = label;
+  wrap.appendChild(lbl);
+
+  const ul = document.createElement("ul");
+  ul.className = "check-list";
+  items.forEach((item, i) => {
+    const isObj = typeof item === "object";
+    const text = isObj ? item.t : item;
+    const isSec = isObj && item.sec;
+    const id = modId + "-" + prefix + i;
+    const done = !!state.checked[id];
+
+    const li = document.createElement("li");
+    li.className = "check-item" + (done ? " done" : "") + (isSec ? " security" : "");
+    li.innerHTML = `<input type="checkbox" data-id="${id}" ${done?'checked':''}><span>${text}</span>`;
+    ul.appendChild(li);
+  });
+  wrap.appendChild(ul);
+  return wrap;
+}
+
+document.getElementById("resetBtn").addEventListener("click", async () => {
+  if(!confirm("¿Reiniciar todo el progreso del pénsum? Esta acción no se puede deshacer.")) return;
+  state = { checked:{}, fechaInicio: new Date().toISOString().slice(0,10), openModules:{} };
+  await saveState();
+  render();
+});
+
+(async function init(){
+  await loadState();
+  document.getElementById("loadingState").style.display = "none";
+  document.getElementById("modulos").style.display = "flex";
+  render();
+})();
+</script>
+</body>
+</html>
