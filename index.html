@@ -227,6 +227,48 @@
 
   .loading{padding:3rem; text-align:center; color:var(--paper-dim); font-size:0.85rem;}
 
+  /* ===== ANEXOS: STACK / PROYECTO GUÍA ===== */
+  .doc-box{
+    border:1px solid var(--line); border-radius:4px;
+    background:var(--navy-1); padding:1.4rem 1.6rem;
+    margin-bottom:1.5rem;
+  }
+  .doc-box > h2{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+    color:var(--brass); margin:0 0 0.9rem; font-weight:700;
+  }
+  .doc-box h3{
+    font-family:'Fraunces',serif; font-size:0.9rem; font-weight:600;
+    margin:1.3rem 0 0.55rem; color:var(--paper);
+  }
+  .doc-box h3:first-of-type{margin-top:0.2rem;}
+  .doc-box p{font-size:0.84rem; line-height:1.65; color:var(--paper-dim); margin:0 0 0.8rem;}
+
+  pre.tree{
+    font-family:'JetBrains Mono',monospace; font-size:0.71rem; line-height:1.7;
+    color:var(--paper-dim); background:var(--navy-2);
+    border:1px solid var(--line-soft); border-radius:3px;
+    padding:1rem 1.1rem; overflow-x:auto; white-space:pre; margin:0 0 0.3rem;
+  }
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+  @media(max-width:700px){.grid-2{grid-template-columns:1fr;}}
+
+  table.integracion{width:100%; border-collapse:collapse; font-size:0.79rem; margin-top:0.4rem;}
+  table.integracion th{
+    text-align:left; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--brass-dim); padding:0.5rem 0.6rem; border-bottom:1px solid var(--line);
+  }
+  table.integracion td{
+    padding:0.6rem 0.6rem; border-bottom:1px solid var(--line-soft);
+    color:var(--paper-dim); vertical-align:top; line-height:1.5;
+  }
+  table.integracion td.code{
+    font-family:'JetBrains Mono',monospace; color:var(--brass);
+    white-space:nowrap; font-size:0.71rem;
+  }
+  table.integracion tr:last-child td{border-bottom:none;}
+
   @media(max-width:600px){
     .mod-head{padding:0.9rem 1rem; gap:0.7rem;}
     .mod-code{display:none;}
@@ -246,7 +288,7 @@
       <div>
         <div class="doc-eyebrow">Pénsum de estudio · Expediente académico</div>
         <h1>Full Stack + Automatización + Seguridad</h1>
-        <div class="doc-sub">Ruta secuencial de 7 módulos. Cada módulo se aprueba antes de desbloquear el siguiente — no hay atajos.</div>
+        <div class="doc-sub">Ruta secuencial de 7 módulos, construidos alrededor de un único proyecto guía: un Sistema de Inventario, Remisiones y Ventas. Cada módulo se aprueba antes de desbloquear el siguiente — no hay atajos.</div>
       </div>
     </div>
 
@@ -272,6 +314,120 @@
       <li><b>Ciberseguridad no es un módulo aparte:</b> aparece marcada con 🛡 dentro de cada módulo, integrada al contenido técnico.</li>
       <li><b>Si un criterio no se cumple honestamente,</b> no se marca. El progreso falso no desbloquea nada útil.</li>
     </ol>
+  </div>
+
+  <div class="doc-box">
+    <h2>Anexo I — Stack tecnológico oficial</h2>
+    <p>El programa se enfoca en construir aplicaciones web de gestión, inventario y operación comercial con el siguiente stack. Cada capa se cubre en el módulo correspondiente del pénsum.</p>
+    <pre class="tree">FRONTEND
+└─ Next.js + Tailwind CSS + shadcn/ui
+   └─ Componentes reutilizables para tablas, formularios, diálogos,
+      filtros, navegación y estados de carga/error.
+
+BACKEND
+└─ FastAPI + Python
+   └─ API REST, validación con Pydantic, documentación automática,
+      lógica de negocio y manejo consistente de errores.
+
+BASE DE DATOS
+└─ PostgreSQL
+   └─ Modelado relacional para entidades como:
+      productos → remisiones → clientes
+      usuarios → roles → permisos
+      movimientos de inventario → productos → bodegas
+
+ORM Y MIGRACIONES
+└─ SQLAlchemy 2.0 + Alembic
+   └─ Modelos ORM, relaciones, consultas, transacciones
+      y migraciones versionadas del esquema de base de datos.
+
+DASHBOARD Y GRÁFICAS
+└─ Recharts dentro de Next.js
+   └─ Indicadores, series temporales, gráficas de ventas,
+      inventario, productos con bajo stock y actividad operativa.
+
+AUTENTICACIÓN Y AUTORIZACIÓN
+└─ FastAPI + JWT
+   └─ Registro e inicio de sesión, hash de contraseñas,
+      tokens con expiración, control de acceso y roles:
+      admin, bodeguero y vendedor.
+
+CONTAINERIZACIÓN
+└─ Docker + Docker Compose
+   └─ Entornos reproducibles para frontend, backend y PostgreSQL,
+      variables de entorno, volúmenes y red interna.
+
+DESPLIEGUE
+└─ Railway
+   └─ PostgreSQL y backend desplegados en la nube;
+      frontend desplegado y conectado mediante variables de entorno.
+
+EDITOR
+└─ Cursor
+   └─ Uso responsable de asistencia por IA: entender, probar,
+      revisar y poder explicar todo el código integrado.
+
+SISTEMA OPERATIVO
+└─ Ubuntu 22.04
+   └─ Terminal, permisos, variables de entorno, SSH,
+      estructura de archivos y herramientas de desarrollo.</pre>
+  </div>
+
+  <div class="doc-box">
+    <h2>Anexo II — Proyecto guía del pénsum</h2>
+    <p>El Capstone es un <b style="color:var(--paper);">Sistema de Inventario, Remisiones y Ventas</b>. Todos los módulos construyen partes de este mismo producto real, en lugar de ejercicios desconectados.</p>
+
+    <div class="grid-2">
+      <div>
+        <h3>Entidades mínimas</h3>
+        <pre class="tree">Usuarios
+Roles
+Clientes
+Productos
+Categorías
+Bodegas
+Inventario
+Movimientos de inventario
+Remisiones
+Detalle de remisión
+Ventas
+Detalle de venta</pre>
+      </div>
+      <div>
+        <h3>Relaciones centrales</h3>
+        <pre class="tree">Cliente
+ └─ tiene muchas remisiones
+
+Remisión
+ └─ pertenece a un cliente
+ └─ tiene muchos detalles
+
+Detalle de remisión
+ └─ referencia un producto
+ └─ cantidad, precio, estado
+
+Producto
+ └─ pertenece a una categoría
+ └─ tiene movimientos de inventario
+ └─ aparece en muchas remisiones
+
+Usuario
+ └─ tiene un rol: admin,
+    bodeguero o vendedor</pre>
+      </div>
+    </div>
+
+    <h3>Integración por módulo</h3>
+    <table class="integracion">
+      <tr><th>Módulo</th><th>Aplicación dentro del proyecto</th></tr>
+      <tr><td class="code">MOD-00</td><td>Repositorios, ramas por funcionalidad, pull requests, README y flujo de trabajo</td></tr>
+      <tr><td class="code">MOD-01</td><td>Scripts para importar productos desde CSV, generar reportes y validar datos</td></tr>
+      <tr><td class="code">MOD-02</td><td>API FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic y endpoints CRUD</td></tr>
+      <tr><td class="code">MOD-03</td><td>JWT, hash de contraseñas, roles, permisos por endpoint y protección de recursos</td></tr>
+      <tr><td class="code">MOD-04</td><td>Dashboard en Next.js, formularios, tablas, filtros, interfaz responsive y Recharts</td></tr>
+      <tr><td class="code">MOD-05</td><td>Contenedores, Compose, variables de entorno, Railway y configuración productiva</td></tr>
+      <tr><td class="code">MOD-06</td><td>Sistema completo, demo, pruebas, documentación, despliegue y presentación profesional</td></tr>
+    </table>
   </div>
 
   <div id="loadingState" class="loading">Cargando expediente...</div>
@@ -464,12 +620,37 @@ const DATA = [
       "Simulacro de entrevista técnica explicando tu proyecto en voz alta (grábate)"
     ],
     proyecto:"Sistema completo end-to-end: backend + frontend + base de datos relacional + autenticación con roles + gráficas + dockerizado + desplegado en producción. Pieza central de tu portafolio.",
+    funcionalidades:[
+      "Inicio de sesión con JWT",
+      "Roles: admin, bodeguero y vendedor",
+      "Administración de productos, categorías y clientes",
+      "Registro de entradas y salidas de inventario",
+      "Creación de remisiones con varios productos",
+      "Validación de stock antes de registrar una salida",
+      "Historial de movimientos por producto",
+      "Tablas con búsqueda, filtros, paginación y estados vacíos",
+      "Dashboard con ventas, productos con bajo stock y movimientos recientes",
+      "Migraciones de base de datos con Alembic",
+      "Proyecto ejecutable con Docker Compose",
+      "Backend y PostgreSQL desplegados en Railway",
+      "README técnico con instalación, variables de entorno, arquitectura y capturas"
+    ],
     criterios:[
       "Mi proyecto final está desplegado y accesible públicamente",
       "Tiene al menos 2 roles de usuario funcionando con permisos distintos",
       "Pasé mi propio checklist de seguridad OWASP sobre este proyecto",
       "Puedo explicar cada decisión técnica sin apoyarme en notas",
-      "Mi README permite que alguien más lo corra sin preguntarme nada"
+      "Mi README permite que alguien más lo corra sin preguntarme nada",
+      "Puedo levantar frontend, backend y base de datos con Docker Compose",
+      "Puedo crear y ejecutar una migración de Alembic sin perder datos existentes",
+      "Puedo modelar relaciones uno-a-muchos y muchos-a-muchos con SQLAlchemy 2.0",
+      "Puedo proteger rutas según el rol del usuario",
+      "Un vendedor no puede acceder a acciones exclusivas de administrador",
+      "No puedo registrar una salida de inventario superior al stock disponible",
+      "Mi frontend muestra estados de carga, error, vacío y éxito",
+      "Mi dashboard consume datos reales de la API, no datos hardcodeados",
+      "Mis secretos están en variables de entorno y nunca se suben a GitHub",
+      "Mi aplicación está desplegada y documentada para que otra persona pueda ejecutarla"
     ]
   }
 ];
@@ -482,6 +663,7 @@ function allItemIds(mod){
   mod.unidades.forEach((u,i)=> ids.push(mod.id+"-u"+i));
   mod.actividades.forEach((a,i)=> ids.push(mod.id+"-a"+i));
   ids.push(mod.id+"-p");
+  if(mod.funcionalidades) mod.funcionalidades.forEach((f,i)=> ids.push(mod.id+"-f"+i));
   mod.criterios.forEach((c,i)=> ids.push(mod.id+"-c"+i));
   return ids;
 }
@@ -607,12 +789,19 @@ function render(){
         </label>`;
       inner.appendChild(proyectoBox);
 
+      if(mod.funcionalidades){
+        inner.appendChild(buildSection("Funcionalidades mínimas del proyecto", mod.funcionalidades, mod.id, "f"));
+      }
+
       const criteriosBox = document.createElement("div");
       criteriosBox.className = "criterios-box";
-      criteriosBox.appendChild(buildSection("Criterios de aprobación (examen de salida)", mod.criterios, mod.id, "c", true));
+      const criteriosLabel = idx === DATA.length - 1 ? "Criterios de aprobación (examen final de graduación)" : "Criterios de aprobación (examen de salida)";
+      criteriosBox.appendChild(buildSection(criteriosLabel, mod.criterios, mod.id, "c", true));
       const note = document.createElement("div");
       note.className = "gate-note";
-      note.textContent = "Debes marcar el 100% de estos criterios para desbloquear el siguiente módulo.";
+      note.textContent = idx === DATA.length - 1
+        ? "Este es el examen final: marca el 100% para graduarte del pénsum."
+        : "Debes marcar el 100% de estos criterios para desbloquear el siguiente módulo.";
       criteriosBox.appendChild(note);
       inner.appendChild(criteriosBox);
     }
