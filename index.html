@@ -35,7 +35,6 @@
   .mono{font-family:'JetBrains Mono',monospace;}
   .serif{font-family:'Fraunces',serif;}
 
-  /* ===== HEADER / EXPEDIENTE ===== */
   .wrap{max-width:920px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
   .crest{
     width:52px;height:52px;border-radius:50%;
@@ -45,40 +44,27 @@
   }
   .crest svg{width:26px;height:26px;}
   header.doc{
-    border:1px solid var(--line);
-    border-radius:4px;
-    background:var(--navy-1);
-    padding:1.75rem 1.75rem 1.5rem;
-    margin-bottom:1.75rem;
-    position:relative;
+    border:1px solid var(--line); border-radius:4px; background:var(--navy-1);
+    padding:1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; position:relative;
   }
   header.doc::before{
-    content:'';
-    position:absolute; inset:6px;
-    border:1px solid rgba(201,162,75,0.15);
-    border-radius:2px;
-    pointer-events:none;
+    content:''; position:absolute; inset:6px;
+    border:1px solid rgba(201,162,75,0.15); border-radius:2px; pointer-events:none;
   }
   .doc-top{display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;}
   .doc-eyebrow{
     font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase;
     color:var(--brass); margin-bottom:0.3rem; font-weight:600;
   }
-  h1{
-    font-size:1.55rem; margin:0; line-height:1.15; font-weight:600;
-    letter-spacing:0.01em;
-  }
+  h1{font-size:1.5rem; margin:0; line-height:1.15; font-weight:600; letter-spacing:0.01em;}
   .doc-sub{color:var(--paper-dim); font-size:0.85rem; margin-top:0.35rem; line-height:1.5;}
   .expediente-meta{
-    display:flex; flex-wrap:wrap; gap:1.5rem;
-    margin-top:1.25rem; padding-top:1.1rem;
-    border-top:1px dashed var(--line);
-    font-size:0.72rem; color:var(--paper-dim);
+    display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.25rem; padding-top:1.1rem;
+    border-top:1px dashed var(--line); font-size:0.72rem; color:var(--paper-dim);
   }
   .expediente-meta b{color:var(--paper); font-weight:600;}
   .meta-label{text-transform:uppercase; letter-spacing:0.08em; font-size:0.62rem; display:block; margin-bottom:2px; color:var(--brass-dim);}
 
-  /* progreso global */
   .global-progress{margin-top:1.25rem;}
   .gp-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.4rem;}
   .gp-row span:first-child{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--paper-dim);}
@@ -86,11 +72,49 @@
   .bar-track{height:6px; background:var(--navy-2); border-radius:3px; overflow:hidden; border:1px solid var(--line);}
   .bar-fill{height:100%; background:linear-gradient(90deg, var(--brass-dim), var(--brass)); transition:width .5s ease;}
 
-  /* ===== REGLAS ===== */
+  /* ===== RACHA / VER EL PROCESO ===== */
+  .racha-card{
+    border:1px solid var(--line); border-radius:4px; background:var(--navy-1);
+    padding:1.4rem 1.6rem; margin-bottom:1.25rem;
+  }
+  .racha-top{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;}
+  .racha-nums{display:flex; gap:1.75rem;}
+  .racha-num-block .num{font-family:'Fraunces',serif; font-size:1.9rem; font-weight:600; color:var(--brass); line-height:1;}
+  .racha-num-block .lbl{font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--paper-dim); margin-top:0.25rem;}
+  .checkin-btn{
+    background:linear-gradient(180deg, var(--brass), var(--brass-dim));
+    color:var(--navy-0); border:none; font-family:'Inter',sans-serif; font-weight:700;
+    font-size:0.8rem; padding:0.7rem 1.3rem; border-radius:4px; cursor:pointer;
+    letter-spacing:0.02em; white-space:nowrap;
+  }
+  .checkin-btn:disabled{background:var(--navy-2); color:var(--paper-dim); cursor:default; border:1px solid var(--line);}
+  .racha-grid{display:grid; grid-template-columns:repeat(14, 1fr); gap:5px; margin-top:0.5rem;}
+  .racha-day{
+    aspect-ratio:1; border-radius:2px; border:1px solid var(--line);
+    background:var(--navy-2);
+  }
+  .racha-day.done{background:var(--brass); border-color:var(--brass);}
+  .racha-day.today{outline:1.5px solid var(--paper-dim); outline-offset:1px;}
+  .racha-hint{font-size:0.7rem; color:var(--paper-dim); margin-top:0.6rem; font-style:italic;}
+
+  /* ===== METODOLOGÍA ===== */
+  .metodologia{
+    border:1px solid var(--line); border-radius:4px; background:var(--navy-1);
+    padding:1.4rem 1.6rem; margin-bottom:1.25rem;
+  }
+  .metodologia h2{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+    color:var(--brass); margin:0 0 0.9rem; font-weight:700;
+  }
+  .metodo-grid{display:grid; grid-template-columns:1fr 1fr; gap:0.9rem;}
+  @media(max-width:600px){.metodo-grid{grid-template-columns:1fr;}}
+  .metodo-item{border-left:2px solid var(--brass-dim); padding-left:0.8rem;}
+  .metodo-item .m-title{font-weight:700; font-size:0.82rem; color:var(--paper); margin-bottom:0.25rem;}
+  .metodo-item .m-desc{font-size:0.78rem; color:var(--paper-dim); line-height:1.55;}
+
   .rules{
-    border:1px solid var(--line); border-radius:4px;
-    background:var(--navy-1); padding:1.4rem 1.6rem;
-    margin-bottom:2.25rem;
+    border:1px solid var(--line); border-radius:4px; background:var(--navy-1);
+    padding:1.4rem 1.6rem; margin-bottom:2.25rem;
   }
   .rules h2{
     font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
@@ -100,41 +124,26 @@
   .rules li::marker{color:var(--brass); font-family:'JetBrains Mono',monospace; font-weight:700;}
   .rules b{color:var(--paper);}
 
-  /* ===== MÓDULO CARD ===== */
   .modulos{display:flex; flex-direction:column; gap:0.9rem;}
-  .modulo{
-    border:1px solid var(--line); border-radius:4px;
-    background:var(--navy-1); overflow:hidden;
-    transition:border-color .25s;
-  }
+  .modulo{border:1px solid var(--line); border-radius:4px; background:var(--navy-1); overflow:hidden; transition:border-color .25s;}
   .modulo.aprobado{border-color:rgba(92,156,116,0.4);}
   .modulo.bloqueado{opacity:0.55;}
 
-  .mod-head{
-    display:flex; align-items:center; gap:1rem;
-    padding:1.1rem 1.4rem; cursor:pointer;
-    user-select:none;
-  }
+  .mod-head{display:flex; align-items:center; gap:1rem; padding:1.1rem 1.4rem; cursor:pointer; user-select:none;}
   .mod-head:hover{background:var(--navy-2);}
   .mod-code{
-    font-family:'JetBrains Mono',monospace; font-size:0.7rem;
-    color:var(--brass-dim); border:1px solid var(--line);
-    border-radius:3px; padding:0.25rem 0.5rem; flex-shrink:0;
-    letter-spacing:0.03em;
+    font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--brass-dim);
+    border:1px solid var(--line); border-radius:3px; padding:0.25rem 0.5rem; flex-shrink:0; letter-spacing:0.03em;
   }
   .mod-title-block{flex:1; min-width:0;}
   .mod-title{font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; line-height:1.3;}
   .mod-weeks{font-size:0.7rem; color:var(--paper-dim); margin-top:0.15rem;}
-  .mod-progress-mini{
-    width:64px; flex-shrink:0; text-align:right;
-    font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--paper-dim);
-  }
+  .mod-progress-mini{width:64px; flex-shrink:0; text-align:right; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--paper-dim);}
   .mod-progress-mini .bar-track{margin-top:4px; height:4px;}
 
   .badge{
-    flex-shrink:0; font-size:0.62rem; font-weight:700; letter-spacing:0.08em;
-    text-transform:uppercase; padding:0.32rem 0.65rem; border-radius:20px;
-    display:flex; align-items:center; gap:0.35rem; white-space:nowrap;
+    flex-shrink:0; font-size:0.62rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0.32rem 0.65rem; border-radius:20px; display:flex; align-items:center; gap:0.35rem; white-space:nowrap;
   }
   .badge.bloqueado{background:rgba(255,255,255,0.03); color:var(--paper-dim); border:1px solid var(--line);}
   .badge.en-curso{background:rgba(201,162,75,0.1); color:var(--brass); border:1px solid rgba(201,162,75,0.35);}
@@ -143,137 +152,67 @@
   .chevron{width:14px; height:14px; flex-shrink:0; transition:transform .25s; color:var(--paper-dim);}
   .modulo.open .chevron{transform:rotate(90deg);}
 
-  .mod-body{
-    max-height:0; overflow:hidden; transition:max-height .35s ease;
-  }
-  .modulo.open .mod-body{max-height:4000px;}
+  .mod-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .modulo.open .mod-body{max-height:5000px;}
   .mod-body-inner{padding:0 1.4rem 1.5rem; border-top:1px dashed var(--line); margin-top:0; padding-top:1.2rem;}
 
-  .locked-msg{
-    padding:1.4rem; display:flex; align-items:center; gap:0.7rem;
-    color:var(--paper-dim); font-size:0.82rem;
-  }
+  .locked-msg{padding:1.4rem; display:flex; align-items:center; gap:0.7rem; color:var(--paper-dim); font-size:0.82rem;}
   .locked-msg svg{width:16px; height:16px; flex-shrink:0; color:var(--brass-dim);}
 
-  .section-label{
-    font-size:0.65rem; text-transform:uppercase; letter-spacing:0.12em;
-    color:var(--brass-dim); font-weight:700; margin:1.3rem 0 0.6rem;
-  }
+  .section-label{font-size:0.65rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--brass-dim); font-weight:700; margin:1.3rem 0 0.6rem;}
   .section-label:first-child{margin-top:0;}
 
   ul.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.35rem;}
   .check-item{
-    display:flex; align-items:flex-start; gap:0.6rem;
-    font-size:0.85rem; line-height:1.5; color:var(--paper);
-    cursor:pointer; padding:0.25rem 0.3rem; border-radius:3px;
-    transition:background .15s;
+    display:flex; align-items:flex-start; gap:0.6rem; font-size:0.85rem; line-height:1.5; color:var(--paper);
+    cursor:pointer; padding:0.25rem 0.3rem; border-radius:3px; transition:background .15s;
   }
   .check-item:hover{background:var(--navy-2);}
   .check-item input{
-    appearance:none; width:15px; height:15px; margin-top:3px;
-    border:1.5px solid var(--line); border-radius:3px; flex-shrink:0;
-    cursor:pointer; position:relative; background:var(--navy-0);
+    appearance:none; width:15px; height:15px; margin-top:3px; border:1.5px solid var(--line);
+    border-radius:3px; flex-shrink:0; cursor:pointer; position:relative; background:var(--navy-0);
   }
   .check-item input:checked{background:var(--brass); border-color:var(--brass);}
   .check-item input:checked::after{
-    content:''; position:absolute; left:4px; top:0.5px;
-    width:4px; height:8px; border:solid var(--navy-0);
-    border-width:0 2px 2px 0; transform:rotate(45deg);
+    content:''; position:absolute; left:4px; top:0.5px; width:4px; height:8px;
+    border:solid var(--navy-0); border-width:0 2px 2px 0; transform:rotate(45deg);
   }
   .check-item.done span{color:var(--paper-dim); text-decoration:line-through; text-decoration-color:var(--line);}
   .check-item.security{background:rgba(92,156,116,0.05); border-left:2px solid var(--green-dim); padding-left:0.6rem;}
+  .check-item.recall{background:rgba(201,162,75,0.05); border-left:2px solid var(--brass-dim); padding-left:0.6rem;}
 
-  .criterios-box{
-    border:1px solid var(--brass-dim); border-radius:4px;
-    background:rgba(201,162,75,0.04); padding:1rem 1.1rem; margin-top:1.3rem;
-  }
+  .criterios-box{border:1px solid var(--brass-dim); border-radius:4px; background:rgba(201,162,75,0.04); padding:1rem 1.1rem; margin-top:1.3rem;}
   .criterios-box .section-label{margin-top:0; color:var(--brass);}
   .gate-note{font-size:0.72rem; color:var(--paper-dim); margin-top:0.7rem; font-style:italic;}
 
-  .proyecto-box{
-    border:1px solid var(--line); border-radius:4px;
-    background:var(--navy-2); padding:1rem 1.1rem; margin-top:1.3rem;
-    font-size:0.85rem; line-height:1.6; color:var(--paper-dim);
-  }
+  .proyecto-box{border:1px solid var(--line); border-radius:4px; background:var(--navy-2); padding:1rem 1.1rem; margin-top:1.3rem; font-size:0.85rem; line-height:1.6; color:var(--paper-dim);}
   .proyecto-box b{color:var(--paper);}
 
-  /* sello / stamp */
   .stamp{
-    position:absolute; top:-6px; right:14px;
-    width:44px; height:44px; border-radius:50%;
-    border:2px solid var(--green); color:var(--green);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'JetBrains Mono',monospace; font-size:0.5rem; font-weight:700;
-    letter-spacing:0.02em; text-align:center; transform:rotate(-12deg);
-    background:var(--navy-1);
+    position:absolute; top:-6px; right:14px; width:44px; height:44px; border-radius:50%;
+    border:2px solid var(--green); color:var(--green); display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:0.5rem; font-weight:700; letter-spacing:0.02em;
+    text-align:center; transform:rotate(-12deg); background:var(--navy-1);
     animation:stampIn .45s cubic-bezier(.2,1.4,.4,1);
   }
-  @keyframes stampIn{
-    0%{transform:rotate(-12deg) scale(2.2); opacity:0;}
-    60%{opacity:1;}
-    100%{transform:rotate(-12deg) scale(1); opacity:1;}
-  }
+  @keyframes stampIn{0%{transform:rotate(-12deg) scale(2.2); opacity:0;} 60%{opacity:1;} 100%{transform:rotate(-12deg) scale(1); opacity:1;}}
 
-  footer{
-    margin-top:2.5rem; text-align:center;
-    font-size:0.72rem; color:var(--paper-dim);
-  }
+  footer{margin-top:2.5rem; text-align:center; font-size:0.72rem; color:var(--paper-dim);}
   .reset-btn{
-    background:none; border:1px solid var(--line); color:var(--paper-dim);
-    font-family:'Inter',sans-serif; font-size:0.7rem; padding:0.4rem 0.8rem;
-    border-radius:3px; cursor:pointer; margin-top:0.8rem;
+    background:none; border:1px solid var(--line); color:var(--paper-dim); font-family:'Inter',sans-serif;
+    font-size:0.7rem; padding:0.4rem 0.8rem; border-radius:3px; cursor:pointer; margin-top:0.8rem;
   }
   .reset-btn:hover{border-color:var(--red); color:var(--red);}
 
   .loading{padding:3rem; text-align:center; color:var(--paper-dim); font-size:0.85rem;}
-
-  /* ===== ANEXOS: STACK / PROYECTO GUÍA ===== */
-  .doc-box{
-    border:1px solid var(--line); border-radius:4px;
-    background:var(--navy-1); padding:1.4rem 1.6rem;
-    margin-bottom:1.5rem;
-  }
-  .doc-box > h2{
-    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
-    color:var(--brass); margin:0 0 0.9rem; font-weight:700;
-  }
-  .doc-box h3{
-    font-family:'Fraunces',serif; font-size:0.9rem; font-weight:600;
-    margin:1.3rem 0 0.55rem; color:var(--paper);
-  }
-  .doc-box h3:first-of-type{margin-top:0.2rem;}
-  .doc-box p{font-size:0.84rem; line-height:1.65; color:var(--paper-dim); margin:0 0 0.8rem;}
-
-  pre.tree{
-    font-family:'JetBrains Mono',monospace; font-size:0.71rem; line-height:1.7;
-    color:var(--paper-dim); background:var(--navy-2);
-    border:1px solid var(--line-soft); border-radius:3px;
-    padding:1rem 1.1rem; overflow-x:auto; white-space:pre; margin:0 0 0.3rem;
-  }
-
-  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
-  @media(max-width:700px){.grid-2{grid-template-columns:1fr;}}
-
-  table.integracion{width:100%; border-collapse:collapse; font-size:0.79rem; margin-top:0.4rem;}
-  table.integracion th{
-    text-align:left; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--brass-dim); padding:0.5rem 0.6rem; border-bottom:1px solid var(--line);
-  }
-  table.integracion td{
-    padding:0.6rem 0.6rem; border-bottom:1px solid var(--line-soft);
-    color:var(--paper-dim); vertical-align:top; line-height:1.5;
-  }
-  table.integracion td.code{
-    font-family:'JetBrains Mono',monospace; color:var(--brass);
-    white-space:nowrap; font-size:0.71rem;
-  }
-  table.integracion tr:last-child td{border-bottom:none;}
 
   @media(max-width:600px){
     .mod-head{padding:0.9rem 1rem; gap:0.7rem;}
     .mod-code{display:none;}
     .mod-progress-mini{width:44px; font-size:0.62rem;}
     .badge span.label-text{display:none;}
+    .racha-grid{grid-template-columns:repeat(10, 1fr);}
+    .racha-nums{gap:1rem;}
   }
 </style>
 </head>
@@ -288,7 +227,7 @@
       <div>
         <div class="doc-eyebrow">Pénsum de estudio · Expediente académico</div>
         <h1>Full Stack + Automatización + Seguridad</h1>
-        <div class="doc-sub">Ruta secuencial de 7 módulos, construidos alrededor de un único proyecto guía: un Sistema de Inventario, Remisiones y Ventas. Cada módulo se aprueba antes de desbloquear el siguiente — no hay atajos.</div>
+        <div class="doc-sub">Un solo proyecto real crece módulo a módulo: automatización de pesajes → gestión de Calidad (POEs, auditorías, hallazgos) → dashboard → producción → portafolio.</div>
       </div>
     </div>
 
@@ -305,129 +244,51 @@
     </div>
   </header>
 
+  <div class="racha-card">
+    <div class="racha-top">
+      <div class="racha-nums">
+        <div class="racha-num-block"><div class="num" id="rachaActual">0</div><div class="lbl">Racha actual</div></div>
+        <div class="racha-num-block"><div class="num" id="rachaMax">0</div><div class="lbl">Racha máxima</div></div>
+        <div class="racha-num-block"><div class="num" id="rachaTotal">0</div><div class="lbl">Días totales</div></div>
+      </div>
+      <button class="checkin-btn" id="checkinBtn">Marcar hoy como día de estudio</button>
+    </div>
+    <div class="racha-grid" id="rachaGrid"></div>
+    <div class="racha-hint">Regla: nunca dos días seguidos en cero. Un día de 20 minutos cuenta igual que uno de 3 horas — lo que importa es que el cuadro se llene.</div>
+  </div>
+
+  <div class="metodologia">
+    <h2>Tu metodología de estudio (calibrada a tu diagnóstico)</h2>
+    <div class="metodo-grid">
+      <div class="metodo-item">
+        <div class="m-title">1. Práctica deliberada por proyecto real</div>
+        <div class="m-desc">Un solo sistema crece módulo a módulo, no proyectos desechables. Es tu motor principal: la evidencia muestra que así es como los desarrolladores construyen expertise real, no solo con ejercicios sueltos.</div>
+      </div>
+      <div class="metodo-item">
+        <div class="m-title">2. Recuperación activa diaria</div>
+        <div class="m-desc">Olvidas sintaxis y arquitectura por igual, así que cada sesión cierra con una bitácora escrita de memoria, sin ver notas. Es la técnica con más evidencia para retención a largo plazo, por encima de releer o resumir.</div>
+      </div>
+      <div class="metodo-item">
+        <div class="m-title">3. Repetición espaciada ligera</div>
+        <div class="m-desc">Antes de programar, repasas tu bitácora de hace 3–7 días en vez de empezar en frío. Revisar justo antes de olvidar fija el conocimiento con menos repeticiones totales.</div>
+      </div>
+      <div class="metodo-item">
+        <div class="m-title">4. Racha visible, nunca en cero</div>
+        <div class="m-desc">Dijiste que necesitas ver el proceso para sostenerlo — por eso el contador de racha de arriba. Un día corto cuenta; dos días seguidos en blanco es lo único que realmente rompe el hábito.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="rules">
     <h2>Reglas del programa</h2>
     <ol>
       <li><b>Orden estricto:</b> no se avanza al siguiente módulo sin marcar el 100% de sus criterios de aprobación.</li>
       <li><b>Todo se sube a GitHub:</b> ejercicios, actividades y proyectos, cada uno con README.</li>
-      <li><b>El proyecto final de cada módulo es obligatorio</b> — es lo que demuestra que puedes aplicarlo, no solo entenderlo.</li>
+      <li><b>Es un solo proyecto que crece,</b> no proyectos aislados — cada módulo construye sobre el anterior.</li>
       <li><b>Ciberseguridad no es un módulo aparte:</b> aparece marcada con 🛡 dentro de cada módulo, integrada al contenido técnico.</li>
+      <li><b>La bitácora (🧠) no es opcional:</b> es tu mecanismo de recuperación activa, el más efectivo según la evidencia disponible.</li>
       <li><b>Si un criterio no se cumple honestamente,</b> no se marca. El progreso falso no desbloquea nada útil.</li>
     </ol>
-  </div>
-
-  <div class="doc-box">
-    <h2>Anexo I — Stack tecnológico oficial</h2>
-    <p>El programa se enfoca en construir aplicaciones web de gestión, inventario y operación comercial con el siguiente stack. Cada capa se cubre en el módulo correspondiente del pénsum.</p>
-    <pre class="tree">FRONTEND
-└─ Next.js + Tailwind CSS + shadcn/ui
-   └─ Componentes reutilizables para tablas, formularios, diálogos,
-      filtros, navegación y estados de carga/error.
-
-BACKEND
-└─ FastAPI + Python
-   └─ API REST, validación con Pydantic, documentación automática,
-      lógica de negocio y manejo consistente de errores.
-
-BASE DE DATOS
-└─ PostgreSQL
-   └─ Modelado relacional para entidades como:
-      productos → remisiones → clientes
-      usuarios → roles → permisos
-      movimientos de inventario → productos → bodegas
-
-ORM Y MIGRACIONES
-└─ SQLAlchemy 2.0 + Alembic
-   └─ Modelos ORM, relaciones, consultas, transacciones
-      y migraciones versionadas del esquema de base de datos.
-
-DASHBOARD Y GRÁFICAS
-└─ Recharts dentro de Next.js
-   └─ Indicadores, series temporales, gráficas de ventas,
-      inventario, productos con bajo stock y actividad operativa.
-
-AUTENTICACIÓN Y AUTORIZACIÓN
-└─ FastAPI + JWT
-   └─ Registro e inicio de sesión, hash de contraseñas,
-      tokens con expiración, control de acceso y roles:
-      admin, bodeguero y vendedor.
-
-CONTAINERIZACIÓN
-└─ Docker + Docker Compose
-   └─ Entornos reproducibles para frontend, backend y PostgreSQL,
-      variables de entorno, volúmenes y red interna.
-
-DESPLIEGUE
-└─ Railway
-   └─ PostgreSQL y backend desplegados en la nube;
-      frontend desplegado y conectado mediante variables de entorno.
-
-EDITOR
-└─ Cursor
-   └─ Uso responsable de asistencia por IA: entender, probar,
-      revisar y poder explicar todo el código integrado.
-
-SISTEMA OPERATIVO
-└─ Ubuntu 22.04
-   └─ Terminal, permisos, variables de entorno, SSH,
-      estructura de archivos y herramientas de desarrollo.</pre>
-  </div>
-
-  <div class="doc-box">
-    <h2>Anexo II — Proyecto guía del pénsum</h2>
-    <p>El Capstone es un <b style="color:var(--paper);">Sistema de Inventario, Remisiones y Ventas</b>. Todos los módulos construyen partes de este mismo producto real, en lugar de ejercicios desconectados.</p>
-
-    <div class="grid-2">
-      <div>
-        <h3>Entidades mínimas</h3>
-        <pre class="tree">Usuarios
-Roles
-Clientes
-Productos
-Categorías
-Bodegas
-Inventario
-Movimientos de inventario
-Remisiones
-Detalle de remisión
-Ventas
-Detalle de venta</pre>
-      </div>
-      <div>
-        <h3>Relaciones centrales</h3>
-        <pre class="tree">Cliente
- └─ tiene muchas remisiones
-
-Remisión
- └─ pertenece a un cliente
- └─ tiene muchos detalles
-
-Detalle de remisión
- └─ referencia un producto
- └─ cantidad, precio, estado
-
-Producto
- └─ pertenece a una categoría
- └─ tiene movimientos de inventario
- └─ aparece en muchas remisiones
-
-Usuario
- └─ tiene un rol: admin,
-    bodeguero o vendedor</pre>
-      </div>
-    </div>
-
-    <h3>Integración por módulo</h3>
-    <table class="integracion">
-      <tr><th>Módulo</th><th>Aplicación dentro del proyecto</th></tr>
-      <tr><td class="code">MOD-00</td><td>Repositorios, ramas por funcionalidad, pull requests, README y flujo de trabajo</td></tr>
-      <tr><td class="code">MOD-01</td><td>Scripts para importar productos desde CSV, generar reportes y validar datos</td></tr>
-      <tr><td class="code">MOD-02</td><td>API FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic y endpoints CRUD</td></tr>
-      <tr><td class="code">MOD-03</td><td>JWT, hash de contraseñas, roles, permisos por endpoint y protección de recursos</td></tr>
-      <tr><td class="code">MOD-04</td><td>Dashboard en Next.js, formularios, tablas, filtros, interfaz responsive y Recharts</td></tr>
-      <tr><td class="code">MOD-05</td><td>Contenedores, Compose, variables de entorno, Railway y configuración productiva</td></tr>
-      <tr><td class="code">MOD-06</td><td>Sistema completo, demo, pruebas, documentación, despliegue y presentación profesional</td></tr>
-    </table>
   </div>
 
   <div id="loadingState" class="loading">Cargando expediente...</div>
@@ -456,7 +317,8 @@ const DATA = [
     ],
     actividades:[
       "3 repos de práctica subidos con commits ordenados",
-      "Un merge con conflicto resuelto manualmente"
+      "Un merge con conflicto resuelto manualmente",
+      {t:"🧠 Bitácora: explica de memoria qué hace git merge vs git rebase", recall:true}
     ],
     proyecto:"Portafolio base en GitHub: perfil configurado + README de perfil.",
     criterios:[
@@ -467,7 +329,7 @@ const DATA = [
     ]
   },
   {
-    id:"m1", code:"MOD-01", title:"Python — Fundamentos y Automatización", weeks:"Semanas 1–4",
+    id:"m1", code:"MOD-01", title:"Python — Fundamentos y Automatización de Pesajes", weeks:"Semanas 1–4",
     unidades:[
       "Sintaxis base: variables, tipos, operadores",
       "Estructuras de control: condicionales, bucles",
@@ -484,19 +346,21 @@ const DATA = [
     actividades:[
       "20 ejercicios de lógica y estructuras de datos, subidos a GitHub",
       "Un script que lea un archivo y transforme datos con pandas",
-      "Un script que consuma una API pública con requests y maneje errores de conexión"
+      "Un script que consuma una API pública con requests y maneje errores de conexión",
+      {t:"🧠 Bitácora semanal: 5-8 líneas de memoria sobre lo aprendido, sin ver el código", recall:true},
+      {t:"🧠 Antes de la sesión 2 de cada semana: repasa tu bitácora de 3-7 días atrás", recall:true}
     ],
-    proyecto:"Automatización real: scraper o bot que resuelva un problema tedioso tuyo, con logging y manejo de errores, documentado en GitHub.",
+    proyecto:"Automatización real: script que procesa datos de pesajes (ej. exportados de báscula en CSV/Excel), detecta pesos fuera de rango o inconsistencias, y genera un reporte automático con logging y manejo de errores. Es la primera pieza de tu sistema de Calidad — documentado en GitHub.",
     criterios:[
       "Escribo una función con manejo de excepciones sin ver documentación",
       "Uso entornos virtuales por defecto en cada proyecto nuevo",
-      "Mi script de automatización no se cae ante un error esperado",
+      "Mi script de pesajes no se cae ante un error esperado (dato faltante, formato raro)",
       "Nunca dejo contraseñas o tokens escritos directamente en el código",
       "Mi proyecto está en GitHub con README de qué hace y cómo correrlo"
     ]
   },
   {
-    id:"m2", code:"MOD-02", title:"Backend — FastAPI + PostgreSQL + SQLAlchemy + Alembic", weeks:"Semanas 5–9",
+    id:"m2", code:"MOD-02", title:"Backend — API de Calidad (POEs, Auditorías, Hallazgos)", weeks:"Semanas 5–9",
     unidades:[
       "FastAPI: rutas, path/query params, Pydantic models",
       "Inyección de dependencias en FastAPI",
@@ -512,11 +376,12 @@ const DATA = [
       {t:"🛡 CORS: qué es y cómo configurarlo correctamente", sec:true}
     ],
     actividades:[
-      "Diagrama entidad-relación de un sistema con al menos 3 tablas relacionadas",
-      "CRUD completo de una entidad con FastAPI + SQLAlchemy",
-      "Una migración con Alembic que agregue una columna sin perder datos"
+      "Diagrama entidad-relación: Procesos → POEs → Auditorías → Hallazgos → Acciones correctivas",
+      "CRUD completo de Hallazgos con FastAPI + SQLAlchemy",
+      "Una migración con Alembic que agregue una columna sin perder datos",
+      {t:"🧠 Bitácora: dibuja de memoria el diagrama de relaciones antes de abrir el proyecto", recall:true}
     ],
-    proyecto:"API REST completa de un sistema con relaciones complejas (ej. productos → remisiones → clientes), con migraciones versionadas y documentación Swagger.",
+    proyecto:"API REST del núcleo de tu sistema de Calidad: modela Procesos → POEs → Auditorías/Inspecciones → Hallazgos → Acciones correctivas, con relaciones reales (un POE tiene muchas auditorías, una auditoría genera varios hallazgos), migraciones versionadas y documentación Swagger. Conecta con los datos de pesajes del módulo 1.",
     criterios:[
       "Puedo modelar una relación 1:N y N:M sin ejemplo enfrente",
       "Sé explicar por qué el ORM previene inyección SQL",
@@ -526,12 +391,12 @@ const DATA = [
     ]
   },
   {
-    id:"m3", code:"MOD-03", title:"Autenticación y Seguridad — JWT + Roles", weeks:"Semanas 10–11",
+    id:"m3", code:"MOD-03", title:"Autenticación y Seguridad — Roles sobre el sistema de Calidad", weeks:"Semanas 10–11",
     unidades:[
       "JWT: estructura, firma, expiración, refresh tokens",
       "Hashing de contraseñas (bcrypt/argon2)",
       "OAuth2 password flow en FastAPI",
-      "Control de acceso basado en roles (admin, bodeguero, vendedor)",
+      "Control de acceso basado en roles (admin, auditor, responsable de área)",
       "Cookies httpOnly vs almacenamiento en localStorage",
       {t:"🛡 OWASP Top 10 explicado con ejemplos: injection, broken auth, XSS, CSRF", sec:true},
       {t:"🛡 Rate limiting básico contra fuerza bruta en login", sec:true},
@@ -540,9 +405,10 @@ const DATA = [
     actividades:[
       "Implementar login/logout con JWT en el proyecto del módulo 2",
       "Middleware de verificación de rol por endpoint",
-      "Simular y bloquear un ataque de fuerza bruta simple en login"
+      "Simular y bloquear un ataque de fuerza bruta simple en login",
+      {t:"🧠 Bitácora: explica de memoria qué pasa si tu JWT secret se filtra", recall:true}
     ],
-    proyecto:"Sistema de autenticación completo con roles, integrado a la API del módulo 2.",
+    proyecto:"Roles sobre el sistema de Calidad: admin, auditor y responsable de área. Solo el auditor puede crear un hallazgo; solo el responsable asignado puede cerrarlo. Integrado a la API del módulo 2.",
     criterios:[
       "Explico qué pasa si expongo el JWT secret y cómo evitarlo",
       "Mis contraseñas nunca se guardan en texto plano",
@@ -552,7 +418,7 @@ const DATA = [
     ]
   },
   {
-    id:"m4", code:"MOD-04", title:"Frontend — Next.js + Tailwind + shadcn/ui + Recharts", weeks:"Semanas 12–16",
+    id:"m4", code:"MOD-04", title:"Frontend — Dashboard de Calidad y Pesajes", weeks:"Semanas 12–16",
     unidades:[
       "React: componentes, props, estado, hooks (useState, useEffect)",
       "Next.js App Router: rutas, server components vs client components",
@@ -566,11 +432,12 @@ const DATA = [
       {t:"🛡 Manejo seguro de tokens en el cliente, no exponer datos sensibles", sec:true}
     ],
     actividades:[
-      "5 componentes reutilizables: botón, card, tabla, modal, formulario",
+      "5 componentes reutilizables: botón, card, tabla de hallazgos, modal, formulario",
       "Layout responsivo probado en móvil y escritorio",
-      "Conexión de un formulario del frontend con un endpoint real del backend"
+      "Conexión del formulario de hallazgos con el endpoint real del backend",
+      {t:"🧠 Bitácora: describe de memoria el flujo completo de datos, del formulario a la base de datos", recall:true}
     ],
-    proyecto:"Dashboard conectado a la API de los módulos 2–3: login funcional, tablas, formularios de creación/edición y al menos una gráfica con Recharts.",
+    proyecto:"Dashboard de Calidad y Pesajes conectado a tu API: tabla de hallazgos abiertos/cerrados con filtros, formulario para registrar hallazgos y pesajes fuera de rango, y gráficas (Recharts) de hallazgos por proceso y cumplimiento de POEs en el tiempo.",
     criterios:[
       "Puedo crear un componente con estado y props sin copiar de un ejemplo",
       "Mi frontend consume la API real, no datos hardcodeados",
@@ -593,9 +460,10 @@ const DATA = [
     ],
     actividades:[
       "Dockerfile funcional para el backend y para el frontend",
-      "docker-compose.yml que levante los 3 servicios juntos localmente"
+      "docker-compose.yml que levante los 3 servicios juntos localmente",
+      {t:"🧠 Bitácora: explica de memoria la diferencia entre imagen y contenedor", recall:true}
     ],
-    proyecto:"Todo el stack de los módulos anteriores dockerizado y desplegado en Railway, accesible por URL pública.",
+    proyecto:"Todo tu sistema de Calidad (automatización de pesajes + API + dashboard) dockerizado y desplegado en Railway, accesible por URL pública.",
     criterios:[
       "Mi proyecto completo levanta con un solo comando (docker compose up)",
       "Mis contenedores no corren como root sin razón",
@@ -604,81 +472,57 @@ const DATA = [
     ]
   },
   {
-    id:"m6", code:"MOD-06", title:"Capstone — Proyecto Integrador y Empleabilidad", weeks:"Semanas 19–22",
+    id:"m6", code:"MOD-06", title:"Capstone — Sistema Integral, Portafolio y CV", weeks:"Semanas 19–22",
     unidades:[
       "Arquitectura de un sistema real completo (repaso integrador)",
       "Pruebas básicas con pytest",
       "Buenas prácticas de README, documentación técnica y diagramas",
       "Buenas prácticas de commits/PRs, historial limpio",
-      "Armado de portafolio en GitHub y LinkedIn",
+      "Curación de portafolio: qué proyectos mostrar y cuáles no",
+      "CV orientado a ATS: palabras clave del stack, logros medibles, formato limpio",
+      "Perfil de LinkedIn alineado con tu portafolio y tu CV",
       "Cómo presentar un proyecto en una entrevista técnica",
       {t:"🛡 Checklist final de seguridad: OWASP Top 10 aplicado a tu propio proyecto", sec:true}
     ],
     actividades:[
       "Al menos 5 pruebas automatizadas (pytest) sobre el backend",
       "Documentación técnica del proyecto: arquitectura, decisiones, cómo correrlo",
-      "Simulacro de entrevista técnica explicando tu proyecto en voz alta (grábate)"
+      "Reescribir tu CV con logros medibles (ej. \"automaticé el control de pesajes, eliminando 5h/semana de revisión manual\")",
+      "Actualizar LinkedIn con el proyecto capstone y el stack completo",
+      "Simulacro de entrevista técnica explicando tu proyecto en voz alta (grábate)",
+      {t:"🧠 Bitácora final: explica de memoria, en 10 líneas, la arquitectura completa del sistema", recall:true}
     ],
-    proyecto:"Sistema completo end-to-end: backend + frontend + base de datos relacional + autenticación con roles + gráficas + dockerizado + desplegado en producción. Pieza central de tu portafolio.",
-    funcionalidades:[
-      "Inicio de sesión con JWT",
-      "Roles: admin, bodeguero y vendedor",
-      "Administración de productos, categorías y clientes",
-      "Registro de entradas y salidas de inventario",
-      "Creación de remisiones con varios productos",
-      "Validación de stock antes de registrar una salida",
-      "Historial de movimientos por producto",
-      "Tablas con búsqueda, filtros, paginación y estados vacíos",
-      "Dashboard con ventas, productos con bajo stock y movimientos recientes",
-      "Migraciones de base de datos con Alembic",
-      "Proyecto ejecutable con Docker Compose",
-      "Backend y PostgreSQL desplegados en Railway",
-      "README técnico con instalación, variables de entorno, arquitectura y capturas"
-    ],
+    proyecto:"Sistema de Calidad end-to-end en producción: automatización de pesajes + gestión de POEs, auditorías y hallazgos + roles + dashboard + acciones correctivas. Esta es la pieza central de tu portafolio — el proyecto que vas a mostrar en entrevistas.",
     criterios:[
       "Mi proyecto final está desplegado y accesible públicamente",
       "Tiene al menos 2 roles de usuario funcionando con permisos distintos",
       "Pasé mi propio checklist de seguridad OWASP sobre este proyecto",
       "Puedo explicar cada decisión técnica sin apoyarme en notas",
-      "Mi README permite que alguien más lo corra sin preguntarme nada",
-      "Puedo levantar frontend, backend y base de datos con Docker Compose",
-      "Puedo crear y ejecutar una migración de Alembic sin perder datos existentes",
-      "Puedo modelar relaciones uno-a-muchos y muchos-a-muchos con SQLAlchemy 2.0",
-      "Puedo proteger rutas según el rol del usuario",
-      "Un vendedor no puede acceder a acciones exclusivas de administrador",
-      "No puedo registrar una salida de inventario superior al stock disponible",
-      "Mi frontend muestra estados de carga, error, vacío y éxito",
-      "Mi dashboard consume datos reales de la API, no datos hardcodeados",
-      "Mis secretos están en variables de entorno y nunca se suben a GitHub",
-      "Mi aplicación está desplegada y documentada para que otra persona pueda ejecutarla"
+      "Mi CV y LinkedIn reflejan el stack real que domino, con logros medibles, no solo listas de tecnologías",
+      "Mi README permite que alguien más lo corra sin preguntarme nada"
     ]
   }
 ];
 
 const STORAGE_KEY = "pensum-progress";
-let state = { checked: {}, fechaInicio: null, openModules: {} };
+let state = { checked: {}, fechaInicio: null, openModules: {}, checkins: [] };
 
 function allItemIds(mod){
   const ids = [];
   mod.unidades.forEach((u,i)=> ids.push(mod.id+"-u"+i));
   mod.actividades.forEach((a,i)=> ids.push(mod.id+"-a"+i));
   ids.push(mod.id+"-p");
-  if(mod.funcionalidades) mod.funcionalidades.forEach((f,i)=> ids.push(mod.id+"-f"+i));
   mod.criterios.forEach((c,i)=> ids.push(mod.id+"-c"+i));
   return ids;
 }
-function criterioIds(mod){
-  return mod.criterios.map((c,i)=> mod.id+"-c"+i);
-}
+function criterioIds(mod){ return mod.criterios.map((c,i)=> mod.id+"-c"+i); }
 
 function isModUnlocked(idx){
   if(idx === 0) return true;
   const prev = DATA[idx-1];
   return criterioIds(prev).every(id => !!state.checked[id]);
 }
-function isModApproved(mod){
-  return criterioIds(mod).every(id => !!state.checked[id]);
-}
+function isModApproved(mod){ return criterioIds(mod).every(id => !!state.checked[id]); }
 function modProgress(mod){
   const ids = allItemIds(mod);
   const done = ids.filter(id => !!state.checked[id]).length;
@@ -694,6 +538,31 @@ function globalProgress(){
   return total ? Math.round((done/total)*100) : 0;
 }
 
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function daysAgoStr(n){
+  const d = new Date();
+  d.setDate(d.getDate()-n);
+  return d.toISOString().slice(0,10);
+}
+function computeRacha(){
+  const set = new Set(state.checkins);
+  let actual = 0;
+  let cursor = set.has(todayStr()) ? 0 : 1; // si no ha marcado hoy, la racha "viva" cuenta desde ayer
+  while(set.has(daysAgoStr(cursor))){ actual++; cursor++; }
+  // racha máxima histórica (recorre todos los checkins ordenados)
+  const sorted = [...state.checkins].sort();
+  let max = 0, run = 0, prev = null;
+  sorted.forEach(d=>{
+    if(prev){
+      const diff = (new Date(d) - new Date(prev)) / 86400000;
+      run = diff === 1 ? run+1 : 1;
+    } else { run = 1; }
+    max = Math.max(max, run);
+    prev = d;
+  });
+  return { actual, max, total: state.checkins.length };
+}
+
 async function loadState(){
   try{
     const res = await window.storage.get(STORAGE_KEY, false);
@@ -702,11 +571,12 @@ async function loadState(){
       state.checked = parsed.checked || {};
       state.fechaInicio = parsed.fechaInicio || null;
       state.openModules = parsed.openModules || {};
+      state.checkins = parsed.checkins || [];
     }
-  }catch(e){ /* no existe aún, primera vez */ }
+  }catch(e){ /* primera vez, no existe aún */ }
 
   if(!state.fechaInicio){
-    state.fechaInicio = new Date().toISOString().slice(0,10);
+    state.fechaInicio = todayStr();
     await saveState();
   }
 }
@@ -722,6 +592,42 @@ function lockIconSVG(){
 function chevronSVG(){
   return '<svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 }
+
+function renderRacha(){
+  const { actual, max, total } = computeRacha();
+  document.getElementById("rachaActual").textContent = actual;
+  document.getElementById("rachaMax").textContent = max;
+  document.getElementById("rachaTotal").textContent = total;
+
+  const grid = document.getElementById("rachaGrid");
+  grid.innerHTML = "";
+  const set = new Set(state.checkins);
+  for(let i = 27; i >= 0; i--){
+    const d = daysAgoStr(i);
+    const cell = document.createElement("div");
+    cell.className = "racha-day" + (set.has(d) ? " done" : "") + (d === todayStr() ? " today" : "");
+    cell.title = d;
+    grid.appendChild(cell);
+  }
+
+  const btn = document.getElementById("checkinBtn");
+  if(set.has(todayStr())){
+    btn.disabled = true;
+    btn.textContent = "Hoy ya cuenta ✓";
+  } else {
+    btn.disabled = false;
+    btn.textContent = "Marcar hoy como día de estudio";
+  }
+}
+
+document.getElementById("checkinBtn").addEventListener("click", async () => {
+  const t = todayStr();
+  if(!state.checkins.includes(t)){
+    state.checkins.push(t);
+    await saveState();
+    renderRacha();
+  }
+});
 
 function render(){
   const container = document.getElementById("modulos");
@@ -789,19 +695,12 @@ function render(){
         </label>`;
       inner.appendChild(proyectoBox);
 
-      if(mod.funcionalidades){
-        inner.appendChild(buildSection("Funcionalidades mínimas del proyecto", mod.funcionalidades, mod.id, "f"));
-      }
-
       const criteriosBox = document.createElement("div");
       criteriosBox.className = "criterios-box";
-      const criteriosLabel = idx === DATA.length - 1 ? "Criterios de aprobación (examen final de graduación)" : "Criterios de aprobación (examen de salida)";
-      criteriosBox.appendChild(buildSection(criteriosLabel, mod.criterios, mod.id, "c", true));
+      criteriosBox.appendChild(buildSection("Criterios de aprobación (examen de salida)", mod.criterios, mod.id, "c"));
       const note = document.createElement("div");
       note.className = "gate-note";
-      note.textContent = idx === DATA.length - 1
-        ? "Este es el examen final: marca el 100% para graduarte del pénsum."
-        : "Debes marcar el 100% de estos criterios para desbloquear el siguiente módulo.";
+      note.textContent = "Debes marcar el 100% de estos criterios para desbloquear el siguiente módulo.";
       criteriosBox.appendChild(note);
       inner.appendChild(criteriosBox);
     }
@@ -824,9 +723,10 @@ function render(){
   document.getElementById("gpPct").textContent = globalProgress() + "%";
   document.getElementById("gpBar").style.width = globalProgress() + "%";
   document.getElementById("fechaInicio").textContent = state.fechaInicio || "—";
+  renderRacha();
 }
 
-function buildSection(label, items, modId, prefix, noSectionLabelClass){
+function buildSection(label, items, modId, prefix){
   const wrap = document.createElement("div");
   const lbl = document.createElement("div");
   lbl.className = "section-label";
@@ -839,11 +739,12 @@ function buildSection(label, items, modId, prefix, noSectionLabelClass){
     const isObj = typeof item === "object";
     const text = isObj ? item.t : item;
     const isSec = isObj && item.sec;
+    const isRecall = isObj && item.recall;
     const id = modId + "-" + prefix + i;
     const done = !!state.checked[id];
 
     const li = document.createElement("li");
-    li.className = "check-item" + (done ? " done" : "") + (isSec ? " security" : "");
+    li.className = "check-item" + (done ? " done" : "") + (isSec ? " security" : "") + (isRecall ? " recall" : "");
     li.innerHTML = `<input type="checkbox" data-id="${id}" ${done?'checked':''}><span>${text}</span>`;
     ul.appendChild(li);
   });
@@ -852,8 +753,8 @@ function buildSection(label, items, modId, prefix, noSectionLabelClass){
 }
 
 document.getElementById("resetBtn").addEventListener("click", async () => {
-  if(!confirm("¿Reiniciar todo el progreso del pénsum? Esta acción no se puede deshacer.")) return;
-  state = { checked:{}, fechaInicio: new Date().toISOString().slice(0,10), openModules:{} };
+  if(!confirm("¿Reiniciar todo el progreso del pénsum, incluida tu racha? Esta acción no se puede deshacer.")) return;
+  state = { checked:{}, fechaInicio: todayStr(), openModules:{}, checkins:[] };
   await saveState();
   render();
 });
