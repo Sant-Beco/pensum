@@ -95,7 +95,7 @@
   .racha-day.done{background:var(--brass); border-color:var(--brass);}
   .racha-day.today{outline:1.5px solid var(--paper-dim); outline-offset:1px;}
   .racha-hint{font-size:0.7rem; color:var(--paper-dim); margin-top:0.6rem; font-style:italic;}
- 
+
   .cs50-card{
     border:1px solid #A2372F; border-radius:4px; background:var(--navy-1);
     padding:1.4rem 1.6rem; margin-bottom:1.25rem; position:relative;
@@ -247,7 +247,7 @@
       <div>
         <div class="doc-eyebrow">Pénsum de estudio · Expediente académico</div>
         <h1>Full Stack + Automatización + Seguridad</h1>
-        <div class="doc-sub">Un solo proyecto real crece módulo a módulo: automatización de pesajes → gestión de Calidad (POEs, auditorías, hallazgos) → dashboard → producción → portafolio.</div>
+        <div class="doc-sub">Node.js/JavaScript es tu lenguaje principal — Python queda como herramienta de soporte para automatización y procesamiento de datos. Un solo proyecto real crece módulo a módulo: automatización de pesajes (Python) → JavaScript/Node.js → gestión de Calidad en Node (POEs, auditorías, hallazgos) → dashboard → producción → portafolio.</div>
       </div>
     </div>
  
@@ -263,26 +263,26 @@
       <div class="bar-track"><div class="bar-fill" id="gpBar" style="width:0%"></div></div>
     </div>
   </header>
- 
+
   <div class="cs50-card">
     <div class="cs50-top">
       <div class="cs50-title-wrap">
         <div class="cs50-crest">🎓</div>
         <div>
-          <div class="cs50-title">Harvard CS50 — Introduction to Computer Science</div>
-          <a class="cs50-link" href="https://pll.harvard.edu/course/cs50-introduction-computer-science" target="_blank" rel="noopener">pll.harvard.edu/course/cs50-introduction-computer-science ↗</a>
+          <div class="cs50-title">Harvard CS50 — Track paralelo</div>
+          <a class="cs50-link" href="https://pll.harvard.edu/course/cs50-introduction-computer-science" target="_blank" rel="noopener">pll.harvard.edu/cs50 ↗</a>
         </div>
       </div>
-      <span class="cs50-tag">Track paralelo · no bloquea el pénsum</span>
+      <span class="cs50-tag">No bloquea el pénsum</span>
     </div>
-    <div class="cs50-sub">11 semanas de contenido (Semana 0 a 9 + Ciberseguridad) más proyecto final. Corre en paralelo a los módulos de abajo — no hace falta terminarla para avanzar en el pénsum, pero suma a tu fundamento real de ciencias de la computación.</div>
+    <div class="cs50-sub">CS50x primero, y luego CS50 SQL — corta y directa al grano de tu módulo de Backend. Corren en paralelo a los módulos de abajo, a tu ritmo, sin bloquear tu progreso.</div>
     <div class="cs50-progress">
-      <div class="gp-row"><span>Avance de CS50</span><span id="cs50Pct">0%</span></div>
+      <div class="gp-row"><span>Avance combinado de CS50</span><span id="cs50Pct">0%</span></div>
       <div class="bar-track"><div class="bar-fill" id="cs50Bar" style="width:0%; background:linear-gradient(90deg,#8A3B34,#C1554B);"></div></div>
     </div>
     <div class="cs50-weeks" id="cs50Weeks"></div>
   </div>
- 
+
   <div class="racha-card">
     <div class="racha-top">
       <div class="racha-nums">
@@ -367,7 +367,7 @@ const DATA = [
     ]
   },
   {
-    id:"m1", code:"MOD-01", title:"Python — Fundamentos y Automatización de Pesajes", weeks:"Semanas 1–4",
+    id:"m1", code:"MOD-01", title:"Python — Herramienta de Automatización y Optimización (no es tu lenguaje principal)", weeks:"Semanas 1–4",
     unidades:[
       "Sintaxis base: variables, tipos, operadores",
       "Estructuras de control: condicionales, bucles",
@@ -378,6 +378,7 @@ const DATA = [
       "Entornos virtuales (venv) y gestión de paquetes (pip, requirements.txt)",
       "Manejo de archivos: lectura/escritura CSV, TXT, JSON",
       "Librerías de automatización: requests, pandas, Selenium/Playwright",
+      "Cuándo usar Python en tu stack: scripts de procesamiento de datos pesado y automatización — no para construir la API",
       {t:"🛡 Variables de entorno para credenciales — nunca hardcodear secrets", sec:true},
       {t:"🛡 Validación básica de inputs antes de procesarlos", sec:true}
     ],
@@ -388,13 +389,14 @@ const DATA = [
       {t:"🧠 Bitácora semanal: 5-8 líneas de memoria sobre lo aprendido, sin ver el código", recall:true},
       {t:"🧠 Antes de la sesión 2 de cada semana: repasa tu bitácora de 3-7 días atrás", recall:true}
     ],
-    proyecto:"Automatización real: script que procesa datos de pesajes (ej. exportados de báscula en CSV/Excel), detecta pesos fuera de rango o inconsistencias, y genera un reporte automático con logging y manejo de errores. Es la primera pieza de tu sistema de Calidad — documentado en GitHub.",
+    proyecto:"Automatización real: script que procesa datos de pesajes (ej. exportados de báscula en CSV/Excel), detecta pesos fuera de rango o inconsistencias, y genera un reporte automático con logging y manejo de errores. Es la primera pieza de tu sistema de Calidad — documentado en GitHub. Este script se queda en Python como pieza de soporte; el resto del sistema se construye en Node.js.",
     criterios:[
       "Escribo una función con manejo de excepciones sin ver documentación",
       "Uso entornos virtuales por defecto en cada proyecto nuevo",
       "Mi script de pesajes no se cae ante un error esperado (dato faltante, formato raro)",
       "Nunca dejo contraseñas o tokens escritos directamente en el código",
-      "Mi proyecto está en GitHub con README de qué hace y cómo correrlo"
+      "Mi proyecto está en GitHub con README de qué hace y cómo correrlo",
+      "Entiendo por qué uso Python aquí (procesamiento de datos) y no para el resto del sistema"
     ]
   },
   {
@@ -433,42 +435,43 @@ const DATA = [
     ]
   },
   {
-    id:"m2", code:"MOD-03", title:"Backend — API de Calidad (POEs, Auditorías, Hallazgos)", weeks:"Semanas 7–11",
+    id:"m2", code:"MOD-03", title:"Backend en Node.js — API de Calidad (POEs, Auditorías, Hallazgos)", weeks:"Semanas 7–11",
     unidades:[
-      "FastAPI: rutas, path/query params, Pydantic models",
-      "Inyección de dependencias en FastAPI",
-      "Documentación automática (Swagger/OpenAPI)",
+      "Express avanzado: routers, middleware personalizado, manejo de errores centralizado",
       "PostgreSQL: modelado relacional, claves primarias/foráneas, normalización",
       "Joins y consultas complejas entre múltiples tablas",
       "Índices y optimización básica de consultas",
-      "SQLAlchemy 2.0: modelos, relaciones (1:N, N:M), sesiones",
-      "Alembic: migraciones y versionado del esquema",
+      "Prisma ORM: schema, modelos, relaciones (1:N, N:M), cliente generado",
+      "Prisma Migrate: migraciones y versionado del esquema",
+      "Validación de datos con Zod (equivalente a Pydantic en el mundo Node)",
       "Diseño de API REST: verbos HTTP, códigos de estado, convenciones",
+      "Documentación de API (Swagger/OpenAPI con swagger-jsdoc o similar)",
       {t:"🛡 Por qué el ORM previene SQL injection", sec:true},
-      {t:"🛡 Validación estricta con Pydantic, no exponer stack traces en producción", sec:true},
-      {t:"🛡 CORS: qué es y cómo configurarlo correctamente", sec:true}
+      {t:"🛡 Validación estricta con Zod, no exponer stack traces en producción", sec:true},
+      {t:"🛡 CORS en Express: qué es y cómo configurarlo correctamente", sec:true}
     ],
     actividades:[
       "Diagrama entidad-relación: Procesos → POEs → Auditorías → Hallazgos → Acciones correctivas",
-      "CRUD completo de Hallazgos con FastAPI + SQLAlchemy",
-      "Una migración con Alembic que agregue una columna sin perder datos",
+      "CRUD completo de Hallazgos con Express + Prisma",
+      "Una migración con Prisma Migrate que agregue una columna sin perder datos",
       {t:"🧠 Bitácora: dibuja de memoria el diagrama de relaciones antes de abrir el proyecto", recall:true}
     ],
-    proyecto:"API REST del núcleo de tu sistema de Calidad: modela Procesos → POEs → Auditorías/Inspecciones → Hallazgos → Acciones correctivas, con relaciones reales (un POE tiene muchas auditorías, una auditoría genera varios hallazgos), migraciones versionadas y documentación Swagger. Conecta con los datos de pesajes del módulo 1.",
+    proyecto:"API REST del núcleo de tu sistema de Calidad, construida en Node.js + Express + Prisma: modela Procesos → POEs → Auditorías/Inspecciones → Hallazgos → Acciones correctivas, con relaciones reales (un POE tiene muchas auditorías, una auditoría genera varios hallazgos), migraciones versionadas y documentación de la API. Conecta con los datos de pesajes que procesaste en Python en el módulo 1.",
     criterios:[
       "Puedo modelar una relación 1:N y N:M sin ejemplo enfrente",
       "Sé explicar por qué el ORM previene inyección SQL",
-      "Mis migraciones de Alembic corren hacia adelante y hacia atrás sin errores",
+      "Mis migraciones de Prisma corren hacia adelante y hacia atrás sin errores",
       "Mi API responde códigos de estado correctos (200, 201, 400, 404...)",
-      "No expongo detalles internos del error al cliente en producción"
+      "No expongo detalles internos del error al cliente en producción",
+      "Valido cada input con Zod antes de tocar la base de datos"
     ]
   },
   {
     id:"m3", code:"MOD-04", title:"Autenticación y Seguridad — Roles sobre el sistema de Calidad", weeks:"Semanas 12–13",
     unidades:[
       "JWT: estructura, firma, expiración, refresh tokens",
-      "Hashing de contraseñas (bcrypt/argon2)",
-      "OAuth2 password flow en FastAPI",
+      "Hashing de contraseñas con bcrypt en Node.js",
+      "Implementación de login/logout con jsonwebtoken en Express",
       "Control de acceso basado en roles (admin, auditor, responsable de área)",
       "Cookies httpOnly vs almacenamiento en localStorage",
       {t:"🛡 OWASP Top 10 explicado con ejemplos: injection, broken auth, XSS, CSRF", sec:true},
@@ -548,7 +551,7 @@ const DATA = [
     id:"m6", code:"MOD-07", title:"Capstone — Sistema Integral, Portafolio y CV", weeks:"Semanas 21–24",
     unidades:[
       "Arquitectura de un sistema real completo (repaso integrador)",
-      "Pruebas básicas con pytest",
+      "Pruebas básicas con Jest + Supertest (testing de la API en Node.js)",
       "Buenas prácticas de README, documentación técnica y diagramas",
       "Buenas prácticas de commits/PRs, historial limpio",
       "Curación de portafolio: qué proyectos mostrar y cuáles no",
@@ -558,7 +561,7 @@ const DATA = [
       {t:"🛡 Checklist final de seguridad: OWASP Top 10 aplicado a tu propio proyecto", sec:true}
     ],
     actividades:[
-      "Al menos 5 pruebas automatizadas (pytest) sobre el backend",
+      "Al menos 5 pruebas automatizadas (Jest + Supertest) sobre el backend en Node.js",
       "Documentación técnica del proyecto: arquitectura, decisiones, cómo correrlo",
       "Reescribir tu CV con logros medibles (ej. \"automaticé el control de pesajes, eliminando 5h/semana de revisión manual\")",
       "Actualizar LinkedIn con el proyecto capstone y el stack completo",
@@ -576,25 +579,49 @@ const DATA = [
     ]
   }
 ];
- 
-const CS50_WEEKS = [
-  {id:"w0", label:"Semana 0 — Scratch"},
-  {id:"w1", label:"Semana 1 — C"},
-  {id:"w2", label:"Semana 2 — Arrays"},
-  {id:"w3", label:"Semana 3 — Algoritmos"},
-  {id:"w4", label:"Semana 4 — Memoria"},
-  {id:"w5", label:"Semana 5 — Estructuras de datos"},
-  {id:"w6", label:"Semana 6 — Python"},
-  {id:"w7", label:"Semana 7 — SQL"},
-  {id:"w8", label:"Semana 8 — HTML, CSS, JavaScript"},
-  {id:"w9", label:"Semana 9 — Flask"},
-  {id:"w10", label:"Ciberseguridad"},
-  {id:"final", label:"Proyecto final"}
+
+const CS50_COURSES = [
+  {
+    id:"cs50x",
+    title:"CS50x — Introduction to Computer Science",
+    link:"https://pll.harvard.edu/course/cs50-introduction-computer-science",
+    note:"11 semanas de contenido más proyecto final. Corre en paralelo a los módulos de abajo — no hace falta terminarla para avanzar en el pénsum.",
+    weeks:[
+      {id:"w0", label:"Semana 0 — Scratch"},
+      {id:"w1", label:"Semana 1 — C"},
+      {id:"w2", label:"Semana 2 — Arrays"},
+      {id:"w3", label:"Semana 3 — Algoritmos"},
+      {id:"w4", label:"Semana 4 — Memoria"},
+      {id:"w5", label:"Semana 5 — Estructuras de datos"},
+      {id:"w6", label:"Semana 6 — Python"},
+      {id:"w7", label:"Semana 7 — SQL"},
+      {id:"w8", label:"Semana 8 — HTML, CSS, JavaScript"},
+      {id:"w9", label:"Semana 9 — Flask"},
+      {id:"w10", label:"Ciberseguridad"},
+      {id:"final", label:"Proyecto final"}
+    ]
+  },
+  {
+    id:"cs50sql",
+    title:"CS50 SQL — Introduction to Databases with SQL",
+    link:"https://pll.harvard.edu/course/cs50s-introduction-databases-sql",
+    note:"7 semanas, corta y directa. Refuerza justo lo que necesitas para tu módulo de Backend (PostgreSQL, modelado relacional, normalización) — la de mayor retorno por tiempo invertido ahora mismo.",
+    weeks:[
+      {id:"w0", label:"Semana 0 — Consultas (Querying)"},
+      {id:"w1", label:"Semana 1 — Relaciones y joins (Relating)"},
+      {id:"w2", label:"Semana 2 — Diseño y normalización (Designing)"},
+      {id:"w3", label:"Semana 3 — Escritura: subconsultas y transacciones (Writing)"},
+      {id:"w4", label:"Semana 4 — Vistas e índices (Viewing)"},
+      {id:"w5", label:"Semana 5 — Optimización (Optimizing)"},
+      {id:"w6", label:"Semana 6 — Escalabilidad: PostgreSQL y MySQL (Scaling)"},
+      {id:"final", label:"Proyecto final"}
+    ]
+  }
 ];
- 
+
 const STORAGE_KEY = "pensum-progress";
 let state = { checked: {}, fechaInicio: null, openModules: {}, checkins: [], cs50: {} };
- 
+
 function allItemIds(mod){
   const ids = [];
   mod.unidades.forEach((u,i)=> ids.push(mod.id+"-u"+i));
@@ -604,7 +631,7 @@ function allItemIds(mod){
   return ids;
 }
 function criterioIds(mod){ return mod.criterios.map((c,i)=> mod.id+"-c"+i); }
- 
+
 function isModUnlocked(idx){
   if(idx === 0) return true;
   const prev = DATA[idx-1];
@@ -626,10 +653,14 @@ function globalProgress(){
   return total ? Math.round((done/total)*100) : 0;
 }
 function cs50Progress(){
-  const done = CS50_WEEKS.filter(w => !!state.cs50[w.id]).length;
-  return Math.round((done/CS50_WEEKS.length)*100);
+  let total=0, done=0;
+  CS50_COURSES.forEach(c=>{
+    total += c.weeks.length;
+    done += c.weeks.filter(w => !!state.cs50[c.id+"-"+w.id]).length;
+  });
+  return total ? Math.round((done/total)*100) : 0;
 }
- 
+
 function todayStr(){ return new Date().toISOString().slice(0,10); }
 function daysAgoStr(n){
   const d = new Date();
@@ -653,7 +684,7 @@ function computeRacha(){
   });
   return { actual, max, total: state.checkins.length };
 }
- 
+
 // ===== Persistencia híbrida: usa window.storage si está disponible (Claude),
 // y si no, cae automáticamente a localStorage (funciona en Netlify o cualquier hosting estático) =====
 async function storageGet(key){
@@ -670,7 +701,7 @@ async function storageSet(key, value){
   try{ localStorage.setItem(key, value); }
   catch(e){ console.error("No se pudo guardar el progreso (¿almacenamiento bloqueado o lleno?)", e); }
 }
- 
+
 async function loadState(){
   try{
     const raw = await storageGet(STORAGE_KEY);
@@ -685,7 +716,7 @@ async function loadState(){
   }catch(e){
     console.warn("No se pudo leer el progreso guardado, se empieza de cero.", e);
   }
- 
+
   if(!state.fechaInicio){
     state.fechaInicio = todayStr();
     await saveState();
@@ -694,8 +725,8 @@ async function loadState(){
 async function saveState(){
   await storageSet(STORAGE_KEY, JSON.stringify(state));
 }
- 
- 
+
+
 function lockIconSVG(){
   return '<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.5"/></svg>';
 }
@@ -733,17 +764,45 @@ function renderRacha(){
 function renderCS50(){
   document.getElementById("cs50Pct").textContent = cs50Progress() + "%";
   document.getElementById("cs50Bar").style.width = cs50Progress() + "%";
- 
+
   const wrap = document.getElementById("cs50Weeks");
   wrap.innerHTML = "";
-  CS50_WEEKS.forEach(w=>{
-    const done = !!state.cs50[w.id];
-    const row = document.createElement("label");
-    row.className = "check-item" + (done ? " done" : "");
-    row.style.padding = "0.25rem 0.3rem";
-    row.innerHTML = `<input type="checkbox" data-cs50="${w.id}" ${done?"checked":""}><span>${w.label}</span>`;
-    wrap.appendChild(row);
+
+  CS50_COURSES.forEach(course=>{
+    const done = course.weeks.filter(w=>!!state.cs50[course.id+"-"+w.id]).length;
+    const pct = Math.round((done/course.weeks.length)*100);
+
+    const courseBlock = document.createElement("div");
+    courseBlock.style.marginBottom = "1.1rem";
+
+    const head = document.createElement("div");
+    head.style.cssText = "display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.4rem;";
+    head.innerHTML = `
+      <a href="${course.link}" target="_blank" rel="noopener" style="font-family:'Fraunces',serif; font-weight:600; font-size:0.85rem; color:var(--paper); text-decoration:none; border-bottom:1px dashed var(--brass-dim);">${course.title} ↗</a>
+      <span class="mono" style="font-size:0.72rem; color:#D98A82;">${done}/${course.weeks.length}</span>
+    `;
+    courseBlock.appendChild(head);
+
+    if(course.note){
+      const note = document.createElement("div");
+      note.style.cssText = "font-size:0.74rem; color:var(--paper-dim); margin-bottom:0.5rem; line-height:1.5;";
+      note.textContent = course.note;
+      courseBlock.appendChild(note);
+    }
+
+    course.weeks.forEach(w=>{
+      const wid = course.id+"-"+w.id;
+      const wDone = !!state.cs50[wid];
+      const row = document.createElement("label");
+      row.className = "check-item" + (wDone ? " done" : "");
+      row.style.padding = "0.25rem 0.3rem";
+      row.innerHTML = `<input type="checkbox" data-cs50="${wid}" ${wDone?"checked":""}><span>${w.label}</span>`;
+      courseBlock.appendChild(row);
+    });
+
+    wrap.appendChild(courseBlock);
   });
+
   wrap.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
     cb.addEventListener("change", async (e)=>{
       state.cs50[e.target.dataset.cs50] = e.target.checked;
@@ -752,7 +811,7 @@ function renderCS50(){
     });
   });
 }
- 
+
 document.getElementById("checkinBtn").addEventListener("click", async () => {
   const t = todayStr();
   if(!state.checkins.includes(t)){
@@ -892,7 +951,7 @@ document.getElementById("resetBtn").addEventListener("click", async () => {
   await saveState();
   render();
 });
- 
+
 (async function init(){
   await loadState();
   render();
