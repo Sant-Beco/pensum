@@ -96,6 +96,28 @@
   .racha-day.today{outline:1.5px solid var(--paper-dim); outline-offset:1px;}
   .racha-hint{font-size:0.7rem; color:var(--paper-dim); margin-top:0.6rem; font-style:italic;}
  
+  .cs50-card{
+    border:1px solid #A2372F; border-radius:4px; background:var(--navy-1);
+    padding:1.4rem 1.6rem; margin-bottom:1.25rem; position:relative;
+  }
+  .cs50-top{display:flex; align-items:center; gap:0.9rem; margin-bottom:0.3rem; flex-wrap:wrap; justify-content:space-between;}
+  .cs50-title-wrap{display:flex; align-items:center; gap:0.7rem;}
+  .cs50-crest{
+    width:34px; height:34px; border-radius:50%; border:1.5px solid #C1554B;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.8rem;
+  }
+  .cs50-title{font-family:'Fraunces',serif; font-weight:700; font-size:1.02rem;}
+  .cs50-tag{
+    font-size:0.6rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:700;
+    padding:0.22rem 0.55rem; border-radius:20px; background:rgba(193,85,75,0.14); color:#D98A82;
+    white-space:nowrap;
+  }
+  .cs50-link{font-size:0.75rem; color:var(--brass); text-decoration:none; border-bottom:1px dashed var(--brass-dim);}
+  .cs50-link:hover{color:#E8C57A;}
+  .cs50-sub{font-size:0.78rem; color:var(--paper-dim); margin:0.5rem 0 1rem; line-height:1.55;}
+  .cs50-progress{margin-bottom:1rem;}
+  .cs50-weeks{display:flex; flex-direction:column; gap:0.3rem;}
+ 
   .metodologia{
     border:1px solid var(--line); border-radius:4px; background:var(--navy-1);
     padding:1.4rem 1.6rem; margin-bottom:1.25rem;
@@ -231,7 +253,7 @@
  
     <div class="expediente-meta">
       <div><span class="meta-label">Objetivo</span><b>Empleabilidad en tecnología</b></div>
-      <div><span class="meta-label">Duración estimada</span><b>22 semanas</b></div>
+      <div><span class="meta-label">Duración estimada</span><b>24 semanas + CS50 en paralelo</b></div>
       <div><span class="meta-label">Cohorte iniciada</span><b id="fechaInicio">—</b></div>
       <div><span class="meta-label">Editor / Sistema</span><b>Cursor · Ubuntu 22.04</b></div>
     </div>
@@ -241,6 +263,25 @@
       <div class="bar-track"><div class="bar-fill" id="gpBar" style="width:0%"></div></div>
     </div>
   </header>
+ 
+  <div class="cs50-card">
+    <div class="cs50-top">
+      <div class="cs50-title-wrap">
+        <div class="cs50-crest">🎓</div>
+        <div>
+          <div class="cs50-title">Harvard CS50 — Introduction to Computer Science</div>
+          <a class="cs50-link" href="https://pll.harvard.edu/course/cs50-introduction-computer-science" target="_blank" rel="noopener">pll.harvard.edu/course/cs50-introduction-computer-science ↗</a>
+        </div>
+      </div>
+      <span class="cs50-tag">Track paralelo · no bloquea el pénsum</span>
+    </div>
+    <div class="cs50-sub">11 semanas de contenido (Semana 0 a 9 + Ciberseguridad) más proyecto final. Corre en paralelo a los módulos de abajo — no hace falta terminarla para avanzar en el pénsum, pero suma a tu fundamento real de ciencias de la computación.</div>
+    <div class="cs50-progress">
+      <div class="gp-row"><span>Avance de CS50</span><span id="cs50Pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="cs50Bar" style="width:0%; background:linear-gradient(90deg,#8A3B34,#C1554B);"></div></div>
+    </div>
+    <div class="cs50-weeks" id="cs50Weeks"></div>
+  </div>
  
   <div class="racha-card">
     <div class="racha-top">
@@ -292,7 +333,7 @@
   <div class="modulos" id="modulos"></div>
  
   <footer>
-    Tu progreso se guarda automáticamente en este navegador (localStorage).
+    Tu progreso se guarda automáticamente (en Claude usa tu almacenamiento personal; en cualquier otro hosting, localStorage del navegador).
     <br>
     <button class="reset-btn" id="resetBtn">Reiniciar todo el progreso</button>
   </footer>
@@ -357,7 +398,42 @@ const DATA = [
     ]
   },
   {
-    id:"m2", code:"MOD-02", title:"Backend — API de Calidad (POEs, Auditorías, Hallazgos)", weeks:"Semanas 5–9",
+    id:"m1b", code:"MOD-02", title:"JavaScript & Node.js — De lo básico a un nivel decente", weeks:"Semanas 5–6",
+    unidades:[
+      "Sintaxis moderna de JS (ES6+): let/const, arrow functions, template literals, destructuring",
+      "Tipos de datos y coerción en JS — en qué se parece y en qué no a Python",
+      "Arrays y objetos: map, filter, reduce, forEach, spread/rest",
+      "Funciones: closures, callbacks, funciones de orden superior",
+      "Asincronía: de callbacks a Promesas a async/await (el salto conceptual clave)",
+      "El Event Loop: por qué Node.js es de un solo hilo pero no se bloquea",
+      "Módulos: CommonJS (require) vs ES Modules (import/export)",
+      "Node.js: qué es, motor V8, diferencias entre JS de navegador y de servidor",
+      "NPM: package.json, instalar dependencias, scripts",
+      "Node.js básico: módulo fs (archivos) y servidor HTTP nativo sin framework",
+      "Express.js: rutas, middleware, manejo de request/response",
+      {t:"🛡 Validación de inputs en Express — evitar datos maliciosos sin un ORM de por medio", sec:true},
+      {t:"🛡 npm audit y cuidado con dependencias de terceros poco mantenidas", sec:true}
+    ],
+    actividades:[
+      "15 ejercicios de JS puro (arrays, objetos, funciones) sin frameworks, subidos a GitHub",
+      "Convertir 3 ejercicios de tu módulo de Python (pesajes) a JS puro — compara sintaxis y paradigma",
+      "Un script de Node.js que lea un archivo con fs y lo procese, igual que hiciste en Python",
+      "Una mini-API con Express de 2-3 endpoints simples, sin base de datos aún",
+      {t:"🧠 Bitácora: explica de memoria qué es el Event Loop y por qué importa en Node.js", recall:true},
+      {t:"🧠 Bitácora: compara de memoria async/await contra una cadena de .then()", recall:true}
+    ],
+    proyecto:"Mini-API en Node.js + Express que replica en pequeño tu sistema de pesajes: 2-3 endpoints (registrar pesaje, listar pesajes, marcar fuera de rango) usando un archivo JSON como almacenamiento temporal, sin base de datos todavía. No reemplaza tu API en Python — es para que domines JS/Node lo suficiente como para defenderte en cualquier stack en una entrevista o un trabajo.",
+    criterios:[
+      "Entiendo la diferencia entre var, let y const, y por qué evitar var",
+      "Escribo una función async/await sin ver ejemplos, y explico qué problema resuelve frente a callbacks",
+      "Sé qué hace npm install y qué es package.json sin buscarlo",
+      "Levanto un servidor Express con al menos 2 rutas funcionando",
+      "Explico por qué Node.js no bloquea el hilo principal aunque es de un solo hilo",
+      "Mi mini-API en Node maneja errores sin caerse (try/catch en rutas async)"
+    ]
+  },
+  {
+    id:"m2", code:"MOD-03", title:"Backend — API de Calidad (POEs, Auditorías, Hallazgos)", weeks:"Semanas 7–11",
     unidades:[
       "FastAPI: rutas, path/query params, Pydantic models",
       "Inyección de dependencias en FastAPI",
@@ -388,7 +464,7 @@ const DATA = [
     ]
   },
   {
-    id:"m3", code:"MOD-03", title:"Autenticación y Seguridad — Roles sobre el sistema de Calidad", weeks:"Semanas 10–11",
+    id:"m3", code:"MOD-04", title:"Autenticación y Seguridad — Roles sobre el sistema de Calidad", weeks:"Semanas 12–13",
     unidades:[
       "JWT: estructura, firma, expiración, refresh tokens",
       "Hashing de contraseñas (bcrypt/argon2)",
@@ -415,7 +491,7 @@ const DATA = [
     ]
   },
   {
-    id:"m4", code:"MOD-04", title:"Frontend — Dashboard de Calidad y Pesajes", weeks:"Semanas 12–16",
+    id:"m4", code:"MOD-05", title:"Frontend — Dashboard de Calidad y Pesajes", weeks:"Semanas 14–18",
     unidades:[
       "React: componentes, props, estado, hooks (useState, useEffect)",
       "Next.js App Router: rutas, server components vs client components",
@@ -444,7 +520,7 @@ const DATA = [
     ]
   },
   {
-    id:"m5", code:"MOD-05", title:"Contenerización y Deploy — Docker + Railway", weeks:"Semanas 17–18",
+    id:"m5", code:"MOD-06", title:"Contenerización y Deploy — Docker + Railway", weeks:"Semanas 19–20",
     unidades:[
       "Docker: imágenes, contenedores, Dockerfile",
       "Docker Compose: orquestar backend + base de datos + frontend",
@@ -469,7 +545,7 @@ const DATA = [
     ]
   },
   {
-    id:"m6", code:"MOD-06", title:"Capstone — Sistema Integral, Portafolio y CV", weeks:"Semanas 19–22",
+    id:"m6", code:"MOD-07", title:"Capstone — Sistema Integral, Portafolio y CV", weeks:"Semanas 21–24",
     unidades:[
       "Arquitectura de un sistema real completo (repaso integrador)",
       "Pruebas básicas con pytest",
@@ -501,8 +577,23 @@ const DATA = [
   }
 ];
  
+const CS50_WEEKS = [
+  {id:"w0", label:"Semana 0 — Scratch"},
+  {id:"w1", label:"Semana 1 — C"},
+  {id:"w2", label:"Semana 2 — Arrays"},
+  {id:"w3", label:"Semana 3 — Algoritmos"},
+  {id:"w4", label:"Semana 4 — Memoria"},
+  {id:"w5", label:"Semana 5 — Estructuras de datos"},
+  {id:"w6", label:"Semana 6 — Python"},
+  {id:"w7", label:"Semana 7 — SQL"},
+  {id:"w8", label:"Semana 8 — HTML, CSS, JavaScript"},
+  {id:"w9", label:"Semana 9 — Flask"},
+  {id:"w10", label:"Ciberseguridad"},
+  {id:"final", label:"Proyecto final"}
+];
+ 
 const STORAGE_KEY = "pensum-progress";
-let state = { checked: {}, fechaInicio: null, openModules: {}, checkins: [] };
+let state = { checked: {}, fechaInicio: null, openModules: {}, checkins: [], cs50: {} };
  
 function allItemIds(mod){
   const ids = [];
@@ -534,6 +625,10 @@ function globalProgress(){
   });
   return total ? Math.round((done/total)*100) : 0;
 }
+function cs50Progress(){
+  const done = CS50_WEEKS.filter(w => !!state.cs50[w.id]).length;
+  return Math.round((done/CS50_WEEKS.length)*100);
+}
  
 function todayStr(){ return new Date().toISOString().slice(0,10); }
 function daysAgoStr(n){
@@ -559,16 +654,33 @@ function computeRacha(){
   return { actual, max, total: state.checkins.length };
 }
  
-// ===== Persistencia con localStorage (funciona en Netlify / cualquier hosting estático) =====
-function loadState(){
+// ===== Persistencia híbrida: usa window.storage si está disponible (Claude),
+// y si no, cae automáticamente a localStorage (funciona en Netlify o cualquier hosting estático) =====
+async function storageGet(key){
+  if(typeof window.storage !== "undefined" && typeof window.storage.get === "function"){
+    try{ const res = await window.storage.get(key, false); return res ? res.value : null; }
+    catch(e){ return null; }
+  }
+  try{ return localStorage.getItem(key); }catch(e){ return null; }
+}
+async function storageSet(key, value){
+  if(typeof window.storage !== "undefined" && typeof window.storage.set === "function"){
+    try{ await window.storage.set(key, value, false); return; }catch(e){ /* cae a localStorage */ }
+  }
+  try{ localStorage.setItem(key, value); }
+  catch(e){ console.error("No se pudo guardar el progreso (¿almacenamiento bloqueado o lleno?)", e); }
+}
+ 
+async function loadState(){
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = await storageGet(STORAGE_KEY);
     if(raw){
       const parsed = JSON.parse(raw);
       state.checked = parsed.checked || {};
       state.fechaInicio = parsed.fechaInicio || null;
       state.openModules = parsed.openModules || {};
       state.checkins = parsed.checkins || [];
+      state.cs50 = parsed.cs50 || {};
     }
   }catch(e){
     console.warn("No se pudo leer el progreso guardado, se empieza de cero.", e);
@@ -576,16 +688,13 @@ function loadState(){
  
   if(!state.fechaInicio){
     state.fechaInicio = todayStr();
-    saveState();
+    await saveState();
   }
 }
-function saveState(){
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }catch(e){
-    console.error("No se pudo guardar el progreso (¿localStorage bloqueado o lleno?)", e);
-  }
+async function saveState(){
+  await storageSet(STORAGE_KEY, JSON.stringify(state));
 }
+ 
  
 function lockIconSVG(){
   return '<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.5"/></svg>';
@@ -621,11 +730,34 @@ function renderRacha(){
   }
 }
  
-document.getElementById("checkinBtn").addEventListener("click", () => {
+function renderCS50(){
+  document.getElementById("cs50Pct").textContent = cs50Progress() + "%";
+  document.getElementById("cs50Bar").style.width = cs50Progress() + "%";
+ 
+  const wrap = document.getElementById("cs50Weeks");
+  wrap.innerHTML = "";
+  CS50_WEEKS.forEach(w=>{
+    const done = !!state.cs50[w.id];
+    const row = document.createElement("label");
+    row.className = "check-item" + (done ? " done" : "");
+    row.style.padding = "0.25rem 0.3rem";
+    row.innerHTML = `<input type="checkbox" data-cs50="${w.id}" ${done?"checked":""}><span>${w.label}</span>`;
+    wrap.appendChild(row);
+  });
+  wrap.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+    cb.addEventListener("change", async (e)=>{
+      state.cs50[e.target.dataset.cs50] = e.target.checked;
+      await saveState();
+      renderCS50();
+    });
+  });
+}
+ 
+document.getElementById("checkinBtn").addEventListener("click", async () => {
   const t = todayStr();
   if(!state.checkins.includes(t)){
     state.checkins.push(t);
-    saveState();
+    await saveState();
     renderRacha();
   }
 });
@@ -725,6 +857,7 @@ function render(){
   document.getElementById("gpBar").style.width = globalProgress() + "%";
   document.getElementById("fechaInicio").textContent = state.fechaInicio || "—";
   renderRacha();
+  renderCS50();
 }
  
 function buildSection(label, items, modId, prefix){
@@ -753,15 +886,15 @@ function buildSection(label, items, modId, prefix){
   return wrap;
 }
  
-document.getElementById("resetBtn").addEventListener("click", () => {
-  if(!confirm("¿Reiniciar todo el progreso del pénsum, incluida tu racha? Esta acción no se puede deshacer.")) return;
-  state = { checked:{}, fechaInicio: todayStr(), openModules:{}, checkins:[] };
-  saveState();
+document.getElementById("resetBtn").addEventListener("click", async () => {
+  if(!confirm("¿Reiniciar todo el progreso del pénsum, incluida tu racha y CS50? Esta acción no se puede deshacer.")) return;
+  state = { checked:{}, fechaInicio: todayStr(), openModules:{}, checkins:[], cs50:{} };
+  await saveState();
   render();
 });
  
-(function init(){
-  loadState();
+(async function init(){
+  await loadState();
   render();
 })();
 </script>
