@@ -381,4 +381,149 @@ export const SECCIONES = [
   { campo: "practicas", prefijo: "p", titulo: "Prácticas", clase: "" },
   { campo: "explicar", prefijo: "e", titulo: "Explícalo en voz alta o por escrito", clase: "explicar" },
   { campo: "criterios", prefijo: "c", titulo: "Criterios de aprobación", clase: "" },
+
+
+
+    // ==================== PROYECTOS ====================
+  {
+    id: "pr1", titulo: "Proyecto: sistema de pesajes", semanas: "Semanas 90–95", nucleo: true,
+    practicas: [
+      "Definir el alcance del MVP por escrito: quién registra pesajes, qué decisión toma el cliente con ese dato y qué queda fuera",
+      "Modelar lotes, galpones, puertas, pesajes y usuarios con claves, relaciones y tercera forma normal",
+      "Construir la API de lotes y pesajes con validación, migraciones de Alembic y pruebas de éxito y error",
+      "Generar un reporte de pesos fuera de rango por lote y por semana",
+      "Importar un CSV o Excel de pesajes validando fila por fila y reportando cuántas filas fallaron",
+      "Desplegar con Docker, variables de entorno separadas y backup de PostgreSQL probado",
+    ],
+    explicar: [
+      "Explica en cinco líneas qué problema del cliente resuelve el MVP y qué dejaste fuera a propósito",
+    ],
+    criterios: [
+      "Un usuario registra un pesaje y lo ve en el reporte sin tocar la base de datos a mano",
+      "Importar un archivo con filas inválidas no detiene la carga y muestra cuántas fallaron y por qué",
+    ],
+  },
+  {
+    id: "pr2", titulo: "Mejorar proyecto Gym", semanas: "Semanas 96–98", nucleo: true,
+    practicas: [
+      "Leer el código actual y escribir un mapa de módulos y funciones antes de tocar nada",
+      "Listar cinco problemas medibles (bugs, duplicación, rendimiento, falta de pruebas) y ordenarlos por impacto",
+      "Escribir pruebas del comportamiento actual antes de refactorizar",
+      "Modelar rutinas, ejercicios, series y repeticiones con relaciones claras, y registrar el historial de pesos",
+      "Mover la configuración sensible a variables de entorno y revisar que no haya secretos en el repositorio",
+      "Dejar un README que explique cómo instalar, correr las pruebas y desplegar",
+    ],
+    explicar: [
+      "Explica qué mejora le da más valor al usuario y por qué la eliges primero",
+    ],
+    criterios: [
+      "Cada mejora tiene una prueba y un commit con mensaje semántico",
+      "El proyecto se instala y corre siguiendo solo el README",
+    ],
+  },
+  {
+    id: "pr3", titulo: "Mejorar descargador de MP3", semanas: "Semanas 99–101", nucleo: true,
+    practicas: [
+      "Reemplazar cualquier llamada de shell construida por concatenación de texto por una lista de argumentos (subprocess sin shell=True)",
+      "Sanitizar los nombres de archivo generados desde títulos externos y evitar sobrescrituras accidentales",
+      "Validar las URLs de entrada y rechazar esquemas o hosts no permitidos",
+      "Implementar una cola de descargas con límite de descargas simultáneas",
+      "Añadir reintentos con backoff exponencial solo para errores de red, no para errores 4xx",
+      "Probar la lógica con respuestas simuladas, sin depender de la red",
+    ],
+    explicar: [
+      "Explica por qué concatenar texto dentro de un comando de shell permite inyección y cómo lo evitaste",
+      "Explica qué uso legal de la descarga respalda tu herramienta y cómo lo documentaste",
+    ],
+    criterios: [
+      "Un título con caracteres como ; o .. no puede escribir fuera de la carpeta de destino, y una prueba lo demuestra",
+      "Una URL inválida produce un mensaje claro y no inicia ninguna descarga",
+    ],
+  },
+  {
+    id: "pr4", titulo: "Mejorar programador de tareas", semanas: "Semanas 102–104", nucleo: true,
+    practicas: [
+      "Guardar las tareas y su historial de ejecución en SQLite o PostgreSQL, no en memoria",
+      "Hacer que el reloj sea inyectable para probar horarios sin esperar",
+      "Evitar ejecuciones duplicadas cuando hay dos procesos corriendo, con un bloqueo en base de datos",
+      "Implementar reintentos con límite y registrar cada intento con su resultado",
+      "Interpretar expresiones de horario (cada día a las 08:00, cada 15 minutos) y validar las inválidas",
+      "Emitir logs estructurados y un comando que liste las tareas fallidas de las últimas 24 horas",
+    ],
+    explicar: [
+      "Explica qué pasa si una tarea tarda más que su intervalo y cómo lo evitas",
+    ],
+    criterios: [
+      "Dos procesos no ejecutan la misma tarea en el mismo instante, y una prueba lo demuestra",
+      "Una tarea que falla queda registrada con el motivo y no detiene al resto",
+    ],
+  },
+  {
+    id: "pr5", titulo: "Mejorar reloj", semanas: "Semanas 105–106", nucleo: true,
+    practicas: [
+      "Mostrar la hora de una zona horaria elegida con Intl, sin depender de la zona del equipo",
+      "Guardar las alarmas en UTC y convertirlas a la hora local solo al mostrarlas",
+      "Calcular el temporizador a partir de la hora de inicio, no sumando intervalos, para que no acumule error",
+      "Separar la lógica de tiempo (sin DOM) de la pantalla, y probarla con fechas fijas",
+      "Revisar el contraste, el tamaño de fuente y la navegación por teclado",
+    ],
+    explicar: [
+      "Explica por qué un temporizador que suma intervalos se desvía con el tiempo y cómo lo corregiste",
+    ],
+    criterios: [
+      "Una alarma programada para cruzar el cambio de horario suena a la hora correcta, y una prueba lo demuestra",
+      "Todas las funciones de tiempo se prueban sin esperar en tiempo real",
+    ],
+  },
+  {
+    id: "pr6", titulo: "Recordar pendientes", semanas: "Semanas 107–109", nucleo: true,
+    practicas: [
+      "Diseñar la API de pendientes con estados (pendiente, en curso, hecho) y su transición válida",
+      "Persistir en PostgreSQL con autenticación de usuario y cada pendiente ligado a su dueño",
+      "Impedir que un usuario lea o modifique los pendientes de otro, y probar ese caso",
+      "Programar recordatorios usando el programador de tareas de pr4",
+      "Paginar el listado y filtrar por estado y fecha límite",
+      "Desplegar la API y una interfaz mínima, con HTTPS y backup automático",
+    ],
+    explicar: [
+      "Explica la diferencia entre autenticación y autorización en este proyecto, con un ejemplo concreto",
+    ],
+    criterios: [
+      "Un usuario recibe 404 o 403 al pedir un pendiente ajeno, y una prueba lo demuestra",
+      "Un recordatorio se envía una sola vez aunque el programador se reinicie",
+    ],
+  },
+  {
+    id: "pr7", titulo: "Mejorar Misionales", semanas: "Semanas 110–113", nucleo: true,
+    practicas: [
+      "Documentar el modelo actual con las convenciones de la política de base de datos: prefijo tbl_, claves BIGINT y campos de auditoría",
+      "Pasar todos los cambios de esquema a migraciones versionadas, sin alterar tablas a mano",
+      "Separar rutas, servicios y repositorios en los módulos de inspecciones y usuarios",
+      "Revisar que las contraseñas usan bcrypt y que ninguna se guarda ni se registra en texto plano",
+      "Ajustar las respuestas de la API al formato estándar de la política: status, body, error y message",
+      "Escribir pruebas para autenticación y para los endpoints de inspecciones",
+      "Rotar las claves secretas y comprobar que el .env no está en el repositorio",
+    ],
+    explicar: [
+      "Explica qué cambio de esquema hiciste primero en Misionales y por qué no lo hiciste en un solo paso",
+    ],
+    criterios: [
+      "Todos los endpoints responden con el formato estándar, y una prueba lo verifica en los casos de éxito y de error",
+      "Ningún secreto aparece en el historial de git, y lo verifiqué con una búsqueda en el historial",
+    ],
+  },
+  {
+    id: "pr8", titulo: "Banco de proyectos futuros", semanas: "Después de pr7", nucleo: false, pausadoPorDefecto: true,
+    practicas: [
+      "Anotar al menos tres ideas, cada una con el problema, quién lo tiene y el resultado esperado",
+      "Convertir una idea en requerimiento con historias de usuario y criterios de aceptación",
+      "Estimar el proyecto con rangos antes de empezarlo",
+    ],
+    explicar: [
+      "Explica por qué terminar un proyecto pequeño vale más que empezar tres grandes",
+    ],
+    criterios: [
+      "Antes de empezar una idea nueva, tengo un proyecto anterior terminado y desplegado",
+    ],
+  },
 ];
