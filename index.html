@@ -4,16 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Pénsum de San · Backend profesional</title>
+  <!-- Aplica el tema guardado antes de pintar, para evitar un parpadeo. -->
+  <script>
+    try {
+      if (localStorage.getItem("pensum-san-tema") === "light") {
+        document.documentElement.dataset.theme = "light";
+      }
+    } catch (error) { /* almacenamiento bloqueado: se usa el tema oscuro */ }
+  </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <main class="contenedor">
-    <header>
-      <h1>Pénsum de San: <span class="marca">núcleo fijo</span>, stack intercambiable</h1>
-      <p class="subtitulo">
-        El núcleo se estudia siempre. Los módulos de stack se activan o se pausan según lo que pida tu trabajo.
-        Cada módulo tiene prácticas, ejercicios para explicar (subrayados) y criterios de aprobación.
-      </p>
+    <header class="encabezado">
+      <div>
+        <h1>Pénsum de San: <span class="marca">núcleo fijo</span>, proyectos y frontend pausables</h1>
+        <p class="subtitulo">
+          El núcleo se estudia siempre. Los proyectos y el frontend se activan o pausan según lo que pida tu trabajo.
+          El inglés corre en paralelo. Cada módulo tiene prácticas, ejercicios para explicar (subrayados) y criterios de aprobación.
+        </p>
+      </div>
+      <button type="button" id="boton-tema" class="boton-tema">Usar tema claro</button>
     </header>
 
     <section class="tarjeta" aria-label="Avance general">

@@ -2,7 +2,7 @@
 import { esFechaValida } from "./fechas.js";
 
 /** Subir este número si cambia el formato del progreso guardado. */
-const CLAVE_ALMACEN = "pensum-san-v1";
+const CLAVE_ALMACEN = "pensum-san-v2";
 
 export const estadoInicial = () => ({ marcas: {}, dias: [], pausados: {}, abiertos: {} });
 

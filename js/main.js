@@ -1,8 +1,9 @@
-/** Punto de entrada: conecta el estado, el almacenamiento y la vista. */
+/** Punto de entrada: conecta el estado, el almacenamiento, el tema y la vista. */
 import { MODULOS } from "./data.js";
 import { cargar, estadoInicial, exportar, guardar, importar } from "./almacenamiento.js";
 import { fechaLocal } from "./fechas.js";
 import { estaPausado } from "./progreso.js";
+import { alternarTema, TEMA_CLARO } from "./tema.js";
 import { renderTodo } from "./vista.js";
 
 let estado = cargar();
@@ -48,6 +49,17 @@ document.getElementById("boton-hoy").addEventListener("click", () => {
   const hoy = fechaLocal();
   actualizar((e) => { if (!e.dias.includes(hoy)) e.dias.push(hoy); });
 });
+
+const botonTema = document.getElementById("boton-tema");
+function pintarBotonTema() {
+  const claro = document.documentElement.dataset.theme === TEMA_CLARO;
+  botonTema.textContent = claro ? "Usar tema oscuro" : "Usar tema claro";
+}
+botonTema.addEventListener("click", () => {
+  alternarTema();
+  pintarBotonTema();
+});
+pintarBotonTema();
 
 document.getElementById("boton-exportar").addEventListener("click", () => exportar(estado));
 

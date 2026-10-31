@@ -1,7 +1,7 @@
 {
   "name": "pensum-san",
-  "version": "2.0.0",
-  "description": "Pénsum interactivo de backend: núcleo fijo y stack intercambiable",
+  "version": "2.1.0",
+  "description": "Pénsum interactivo de backend: núcleo fijo, proyectos pausables e inglés en paralelo",
   "private": true,
   "type": "module",
   "scripts": {

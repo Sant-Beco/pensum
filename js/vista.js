@@ -53,7 +53,7 @@ function renderSeccion(modulo, seccion, estado) {
 function renderModulo(modulo, estado) {
   const pausado = estaPausado(modulo, estado.pausados);
   const abierto = Boolean(estado.abiertos[modulo.id]);
-  const etiqueta = modulo.nucleo ? "Núcleo" : pausado ? "Pausado" : "Stack activo";
+  const etiqueta = modulo.nucleo ? "Núcleo" : pausado ? "Pausado" : "Activo";
 
   const cabecera = el(
     "button",
@@ -66,7 +66,7 @@ function renderModulo(modulo, estado) {
   const botonPausa = modulo.nucleo
     ? null
     : el("button", { class: "boton-pausa", type: "button", dataset: { pausar: modulo.id } },
-        pausado ? "Activar este stack" : "Pausar este stack");
+        pausado ? "Activar este módulo" : "Pausar este módulo");
 
   const cuerpo = el("div", { class: "modulo-cuerpo" },
     ...SECCIONES.map((s) => renderSeccion(modulo, s, estado)),
